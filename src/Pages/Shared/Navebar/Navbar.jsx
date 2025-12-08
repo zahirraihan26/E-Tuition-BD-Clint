@@ -1,18 +1,48 @@
-import React, { useState } from "react";
+
 import { FaUser, FaSignInAlt, FaGraduationCap, FaBars, FaTimes } from "react-icons/fa";
+import { Link, NavLink } from "react-router";
+import useAuth from "../../../hooks/useAuth";
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+  const { user , logOut } = useAuth()
+
+
+  const handelLogout =()=>{
+        logOut()
+        .then()
+        .catch(error=>{
+            console.log(error)
+        })
+    }
+
+  const links = <>
+    <li><NavLink to="/"> Home</NavLink></li>
+    <li><NavLink to="/tuitions"> Tuitions</NavLink></li>
+    <li><NavLink to="/tutors"> Tutors</NavLink></li>
+    <li><NavLink to="/about"> About</NavLink></li>
+    <li><NavLink to="/contact">  Contact</NavLink></li>
+
+    
+
+
+  </>
 
   return (
-    <nav className="w-full bg-white shadow-md sticky  z-50 top-0">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16 items-center">
-          {/* Logo */}
+    <div className="navbar bg-base-100  shadow-sm sticky  z-50 top-0">
+      <div className="navbar-start">
+        <div className="dropdown">
+          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /> </svg>
+          </div>
+          <ul
+            tabIndex="-1"
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+            {links}
+          </ul>
+        </div>
+        <div className="btn btn-ghost text-xl">
+
           <div className="flex-shrink-0 flex items-center">
             <div className="bg-blue-900 text-white p-2 rounded-3xl mr-2">
               <FaGraduationCap />
@@ -22,69 +52,32 @@ const Navbar = () => {
             </span>
           </div>
 
-          {/* Desktop Menu */}
-          <div className="hidden md:flex space-x-8">
-            <a href="#" className="text-gray-700 hover:text-yellow-500 font-medium">
-              Home
-            </a>
-            <a href="#" className="text-gray-700 hover:text-yellow-500 font-medium">
-              Tuitions
-            </a>
-            <a href="#" className="text-gray-700 hover:text-yellow-500 font-medium">
-              Tutors
-            </a>
-            <a href="#" className="text-gray-700 hover:text-yellow-500 font-medium">
-              About
-            </a>
-            <a href="#" className="text-gray-700 hover:text-yellow-500 font-medium">
-              Contact
-            </a>
-          </div>
 
-          {/* Buttons & Hamburger */}
-          <div className="flex items-center space-x-4">
-            <button className="hidden md:flex items-center text-gray-700 hover:text-yellow-500">
-              <FaSignInAlt className="mr-1" /> Login
-            </button>
-            <button className="hidden md:flex items-center bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600">
-              <FaUser className="mr-2" /> register
-            </button>
-
-            {/* Mobile Hamburger */}
-            <button className="md:hidden text-gray-700" onClick={toggleMenu}>
-              {isOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
-            </button>
-          </div>
         </div>
-
-        {/* Mobile Menu */}
-        {isOpen && (
-          <div className="md:hidden mt-2 space-y-2 px-2 pb-4">
-            <a href="#" className="block text-gray-700 hover:text-yellow-500 font-medium">
-              Home
-            </a>
-            <a href="#" className="block text-gray-700 hover:text-yellow-500 font-medium">
-              Tuitions
-            </a>
-            <a href="#" className="block text-gray-700 hover:text-yellow-500 font-medium">
-              Tutors
-            </a>
-            <a href="#" className="block text-gray-700 hover:text-yellow-500 font-medium">
-              About
-            </a>
-            <a href="#" className="block text-gray-700 hover:text-yellow-500 font-medium">
-              Contact
-            </a>
-            <button className="w-full flex items-center justify-center text-gray-700 hover:text-yellow-500 mt-2">
-              <FaSignInAlt className="mr-1" /> Login
-            </button>
-            <button className="w-full flex items-center justify-center bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 mt-2">
-              <FaUser className="mr-2" /> Register
-            </button>
-          </div>
-        )}
       </div>
-    </nav>
+      <div className="navbar-center hidden lg:flex">
+        <ul className="menu menu-horizontal px-1">
+          {links}
+        </ul>
+      </div>
+      <div className="navbar-end mx-3 gap-4">
+        
+     
+          
+            {
+              user?
+                <button onClick={handelLogout} className='btn hidden md:flex items-center text-gray-700 hover:text-yellow-500'>Logout</button>
+                
+                :<>
+                <Link className='btn hidden md:flex items-center text-gray-700 hover:text-yellow-500' to="/login">Login</Link>
+             <Link className='btn  justify-center bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600' to="/register"><FaUser className="mr-2" />Register</Link>
+              </>
+            }
+       
+      
+        
+      </div>
+    </div>
   );
 };
 
