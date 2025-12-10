@@ -57,7 +57,7 @@ const Login = () => {
                     <button className="btn btn-neutral mt-4">Login</button>
                 </fieldset>
                 <p className='pt-2'>new to Etuition <Link
-                      
+                  state={location.state}
                  className='text-blue-500 underline' to="/register">register</Link> </p>
             </form>
              <Socallogin></Socallogin>
