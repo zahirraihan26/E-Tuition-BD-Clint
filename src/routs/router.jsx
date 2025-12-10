@@ -11,6 +11,8 @@ import Dashboardlaouts from "../Laouts/Dashboardlaouts";
 import NewTuition from "../Pages/Dashboard/NewTuition/NewTuition";
 import MyTuitions from "../Pages/Dashboard/MyTuitions/MyTuitions";
 import Tuitions from "../Components/Tuitions/Tuitions";
+import AppliedTutors from "../Pages/Dashboard/AppliedTutors/AppliedTutors";
+import TutorApplications from "../Pages/Dashboard/TutorApplications/TutorApplications";
 
 
 export const router = createBrowserRouter([
@@ -62,6 +64,15 @@ export const router = createBrowserRouter([
       {
         path:'new-tuition',
         Component:NewTuition
+      },
+      {
+        path:'applied-tutors',
+        Component:AppliedTutors
+      },
+      // techer section
+      {
+        path:'tutor-applications',
+        Component:TutorApplications
       }
     ]
   }

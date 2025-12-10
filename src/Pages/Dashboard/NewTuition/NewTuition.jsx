@@ -36,12 +36,14 @@ const NewTuition = () => {
             subject,
             description,
             location,
+            
             budget,
             schedule,
             student: {
                 image: user?.photoURL,
                 name: user?.displayName,
                 email: user?.email,
+
             },
         };
 
