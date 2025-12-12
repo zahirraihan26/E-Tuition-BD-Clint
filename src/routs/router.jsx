@@ -13,6 +13,7 @@ import MyTuitions from "../Pages/Dashboard/MyTuitions/MyTuitions";
 import Tuitions from "../Components/Tuitions/Tuitions";
 import AppliedTutors from "../Pages/Dashboard/AppliedTutors/AppliedTutors";
 import TutorApplications from "../Pages/Dashboard/TutorApplications/TutorApplications";
+import PaymentSuccess from "../Pages/Payment/PaymentSuccess";
 
 
 export const router = createBrowserRouter([
@@ -68,6 +69,11 @@ export const router = createBrowserRouter([
       {
         path:'applied-tutors',
         Component:AppliedTutors
+      },
+      // payment
+      {
+            path:'payment-success',
+            Component:PaymentSuccess
       },
       // techer section
       {

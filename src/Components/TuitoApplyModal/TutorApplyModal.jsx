@@ -12,6 +12,7 @@ const TutorApplyModal = ({ tuition, closeModal }) => {
     const applicationData = {
       tuitionId: tuition._id,
       studentEmail: tuition.student.email,
+      subject:tuition.subject,
       tutorEmail: user.email,
       tutorName: user.displayName,
       tutorImage: user.photoURL,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaBookMedical, FaBookOpen } from 'react-icons/fa';
+import { FaBookMedical, FaBookOpen, FaChalkboardTeacher } from 'react-icons/fa';
 import { FaUserGraduate } from 'react-icons/fa6';
 import { Link, NavLink, Outlet } from 'react-router';
 
@@ -57,7 +57,7 @@ const Dashboardlaouts = () => {
                                 {/* teacher  */}
                                <li>
                             <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Tutor Applications" to="/dashboard/tutor-applications">
-                            <FaUserGraduate />
+                            <FaChalkboardTeacher />
                             <span className="is-drawer-close:hidden">Tutor-Applications </span></NavLink>
                           </li>
 

@@ -66,8 +66,8 @@ const TuitionsCard = ({ Tuitions }) => {
           ${budget}/hr
         </div>
 
-        const [showModal, setShowModal] = useState(false);
-
+        {/* const [showModal, setShowModal] = useState(false); */}
+            {/* user===role */}
         <button
           className="btn btn-primary"
           onClick={() => setShowModal(true)}
