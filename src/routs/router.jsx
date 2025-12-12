@@ -14,6 +14,8 @@ import Tuitions from "../Components/Tuitions/Tuitions";
 import AppliedTutors from "../Pages/Dashboard/AppliedTutors/AppliedTutors";
 import TutorApplications from "../Pages/Dashboard/TutorApplications/TutorApplications";
 import PaymentSuccess from "../Pages/Payment/PaymentSuccess";
+import Studentpaymenthistory from "../Pages/Dashboard/Studentpaymenthistory/Studentpaymenthistory";
+import TutorRevenue from "../Pages/Dashboard/TutorRevenue/TutorRevenue";
 
 
 export const router = createBrowserRouter([
@@ -75,10 +77,20 @@ export const router = createBrowserRouter([
             path:'payment-success',
             Component:PaymentSuccess
       },
+      // student payment history 
+      {
+        path:'student-paymenthistory',
+        Component:Studentpaymenthistory
+      },
       // techer section
       {
         path:'tutor-applications',
         Component:TutorApplications
+      },
+      // tuitor payment history 
+      {
+        path:'tutor-revenue',
+        Component:TutorRevenue
       }
     ]
   }

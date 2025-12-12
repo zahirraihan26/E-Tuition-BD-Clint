@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaBookMedical, FaBookOpen, FaChalkboardTeacher } from 'react-icons/fa';
 import { FaUserGraduate } from 'react-icons/fa6';
+import { MdOutlinePayments } from 'react-icons/md';
 import { Link, NavLink, Outlet } from 'react-router';
 
 
@@ -54,6 +55,11 @@ const Dashboardlaouts = () => {
                             <FaUserGraduate />
                             <span className="is-drawer-close:hidden">Applied-tutors</span></NavLink>
                           </li>
+                          <li>
+                            <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="student-paymenthistory" to="/dashboard/student-paymenthistory">
+                            <MdOutlinePayments />
+                            <span className="is-drawer-close:hidden">student payment history</span></NavLink>
+                          </li>
                                 {/* teacher  */}
                                <li>
                             <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Tutor Applications" to="/dashboard/tutor-applications">
@@ -61,6 +67,11 @@ const Dashboardlaouts = () => {
                             <span className="is-drawer-close:hidden">Tutor-Applications </span></NavLink>
                           </li>
 
+                            <li>
+                            <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Tutor-Revenue" to="/dashboard/tutor-revenue">
+                            <MdOutlinePayments />
+                            <span className="is-drawer-close:hidden">Tutor Revenue</span></NavLink>
+                          </li>
 
 
                         {/* List item */}
