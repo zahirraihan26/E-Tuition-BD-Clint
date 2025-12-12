@@ -5,14 +5,15 @@ import { Link, useLocation, useNavigate } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
 import Socallogin from '../SocalLogin/Socallogin';
 import axios from 'axios';
+import { saveorupdateUser } from '../../../Utils';
 
 const Register = () => {
 
   const { register, handleSubmit, formState: { errors } } = useForm();
   const { registerUser, updateUserProfile } = useAuth()
 
-   const location =useLocation()
-    const navgate=useNavigate()
+  const location = useLocation()
+  const navgate = useNavigate()
 
   const handelregistation = (data) => {
     console.log("after register", data.photo[0])
@@ -23,7 +24,7 @@ const Register = () => {
 
       .then(result => {
         console.log(result.user)
-        // store the img and get the photo url
+        // 1. Upload image to imgBB
         const formData = new FormData();
         formData.append('image', profileImg)
         const image_API_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_Imghost}`
@@ -35,20 +36,31 @@ const Register = () => {
               displayName: data.name,
               photoURL: res.data.data.url
             }
+            // 2. Update Firebase profile
             updateUserProfile(userProfile)
               .then(() => {
-                console.log("user profile update Done")
-                navgate(location.state || "/")
+
+                // 3. Save user to database
+                const userInfo = {
+                  name: data.name,
+                  email: data.email,
+                  photoURL: res.data.data.url,
+                  
+                };
+
+                saveorupdateUser(userInfo)
+                  .then(() => {
+                    console.log("User Saved in DB");
+                    navgate(location.state || "/");
+                  })
+                  .catch(err => console.log(err));
               })
-              .catch(error => console.log(error))
-          })
-
-
-
+              .catch(error => console.log(error));
+          });
       })
       .catch(error => {
-        console.log(error)
-      })
+        console.log(error);
+      });
   };
 
   return (

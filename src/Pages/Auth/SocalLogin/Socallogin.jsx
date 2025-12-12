@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from "react-router";
 import useAuth from "../../../hooks/useAuth";
+import { saveorupdateUser } from "../../../Utils";
 
 
 const Socallogin = () => {
@@ -7,17 +8,32 @@ const Socallogin = () => {
      const location =useLocation()
     const navigate =useNavigate()
   
-    const handeGooglelSigIn =()=>{
+    const handeGooglelSigIn = () => {
         signInGoogle()
-        .then(result =>{
-            console.log (result.user)
-             navigate(location?.state || '/')
-            
-           })
-           .catch(error=>{
-            console.log (error)
-           })
-    }
+        .then(result => {
+            const user = result.user;
+            console.log("Google User:", user);
+
+            // Save user to DB
+            const userInfo = {
+                name: user.displayName,
+                email: user.email,
+                photoURL: user.photoURL,
+              
+            };
+
+            saveorupdateUser(userInfo)
+              .then(() => {
+                navigate(location?.state || '/');
+              })
+              .catch(err => console.log(err));
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    };
+
+
 
     return (
         <div className='text-center pb-8'>
