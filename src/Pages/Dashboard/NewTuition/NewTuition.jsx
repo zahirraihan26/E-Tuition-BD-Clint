@@ -36,9 +36,11 @@ const NewTuition = () => {
             subject,
             description,
             location,
-            
+
             budget,
             schedule,
+            status: "pending", 
+            createdAt: new Date(),
             student: {
                 image: user?.photoURL,
                 name: user?.displayName,

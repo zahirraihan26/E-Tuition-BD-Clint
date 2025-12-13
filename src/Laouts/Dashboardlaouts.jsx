@@ -1,7 +1,7 @@
 import React from 'react';
-import { FaBookMedical, FaBookOpen, FaChalkboardTeacher } from 'react-icons/fa';
+import { FaBookMedical, FaBookOpen, FaChalkboardTeacher, FaUser } from 'react-icons/fa';
 import { FaUserGraduate } from 'react-icons/fa6';
-import { MdOutlinePayments } from 'react-icons/md';
+import { MdManageAccounts, MdOutlinePayments } from 'react-icons/md';
 import { Link, NavLink, Outlet } from 'react-router';
 
 
@@ -72,9 +72,20 @@ const Dashboardlaouts = () => {
                             <MdOutlinePayments />
                             <span className="is-drawer-close:hidden">Tutor Revenue</span></NavLink>
                           </li>
-
+                          
+                            {/* Admin  */}
+                            <li>
+                            <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Tuition Management" to="/dashboard/tuition-management">
+                            <MdManageAccounts />
+                            <span className="is-drawer-close:hidden">Tuition Management</span></NavLink>
+                          </li>
 
                         {/* List item */}
+                        <li>
+                            <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="profile" to="/dashboard/profile">
+                          <FaUser />
+                            <span className="is-drawer-close:hidden">Profile</span></NavLink>
+                          </li>
                         <li>
                             <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Settings">
                                 {/* Settings icon */}

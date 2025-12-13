@@ -72,6 +72,7 @@ const MyTuitions = () => {
                             <th>Location</th>
                             <th>Budget</th>
                             <th>schedule</th>
+                            <th>status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -86,6 +87,7 @@ const MyTuitions = () => {
 
                                 <td>${tuition.budget}/hr</td>
                                 <td>{tuition.schedule}</td>
+                                <td>{tuition.status}</td>
                                 <td>
                                     <button className='btn btn-square hover:bg-yellow-500 mx-2'>
                                         <FaEdit />
