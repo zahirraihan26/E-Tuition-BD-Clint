@@ -47,13 +47,14 @@ const Tuitions = () => {
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {Tuitions.map(tuition => (
+              {Tuitions.filter(t => t.status === "approved").map(tuition => (
                 <TuitionsCard
                   key={tuition._id}
                   Tuitions={tuition}
                 />
               ))}
             </div>
+
           </div>
         )}
 

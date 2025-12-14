@@ -1,11 +1,11 @@
 
-import React, { useState } from 'react';
+
 import { FaBookOpen, FaMapMarkerAlt, FaClock } from 'react-icons/fa';
 import { Link } from 'react-router';
-import TutorApplyModal from '../TuitoApplyModal/TutorApplyModal';
+
 
 const TuitionsCard = ({ Tuitions }) => {
-  const [showModal, setShowModal] = useState(false); 
+  
   const {
     budget,
     description,
@@ -13,6 +13,7 @@ const TuitionsCard = ({ Tuitions }) => {
     schedule,
     subject,
     title,
+    _id,
   } = Tuitions || {};
 
   return (
@@ -66,21 +67,18 @@ const TuitionsCard = ({ Tuitions }) => {
           ${budget}/hr
         </div>
 
-        {/* const [showModal, setShowModal] = useState(false); */}
-            {/* user===role */}
-        <button
-          className="btn btn-primary"
-          onClick={() => setShowModal(true)}
-        >
-          Apply
-        </button>
+         {/* View Details button */}
+        
+          <Link to={`/tuitions/${_id}`} className="btn btn-primary">
+            View Details
+          </Link>
+     
 
-        {showModal && (
-          <TutorApplyModal
-            tuition={Tuitions} 
-            closeModal={() => setShowModal(false)}
-          />
-        )}
+        {/* const [showModal, setShowModal] = useState(false); */}
+
+      
+
+        
       </div>
 
     </div>

@@ -19,6 +19,9 @@ import TutorRevenue from "../Pages/Dashboard/TutorRevenue/TutorRevenue";
 import Profile from "../Pages/Dashboard/Common/Profile";
 import TuitionManagement from "../Pages/Dashboard/TuitionManagement/TuitionManagement";
 import UserManagement from "../Pages/Dashboard/UserManagement/UserManagement";
+import Updateprofile from "../Pages/Dashboard/Common/Updateprofile";
+import ReportsAnalytics from "../Pages/Dashboard/ReportsAnalytics/ReportsAnalytics";
+import Viewdetails from "../Components/TuitionsCard/Viewdetails";
 
 
 export const router = createBrowserRouter([
@@ -30,13 +33,14 @@ export const router = createBrowserRouter([
           index: true,
           Component:Home
         },
-        {
-          path:'/beatuitors',
-          element:<Privetrouts><BeATutor></BeATutor></Privetrouts>
-        },
+
         {
           path:"/tuitions",
           Component:Tuitions
+        },
+        {
+          path:"/tuitions/:id",
+          Component:Viewdetails
         },
         {
             path:"/about",
@@ -106,6 +110,10 @@ export const router = createBrowserRouter([
         path:'tuition-management',
         Component:TuitionManagement
       },
+      {
+        path:'reports-analytics',
+        Component:ReportsAnalytics
+      },
        {
         path: 'profile',
         element: (
@@ -113,7 +121,10 @@ export const router = createBrowserRouter([
             <Profile />
           </Privetrouts>
         ),
+
+         
       },
+     
     ]
   }
   

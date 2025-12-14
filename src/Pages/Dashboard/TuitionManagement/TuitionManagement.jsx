@@ -63,7 +63,9 @@ const TuitionManagement = () => {
           <thead>
             <tr>
               <th>#</th>
+              <th>Email</th>
               <th>Title</th>
+
               <th>Subject</th>
               <th>Location</th>
               <th>Budget</th>
@@ -77,6 +79,7 @@ const TuitionManagement = () => {
             {tuitions.map((tuition, index) => (
               <tr key={tuition._id}>
                 <th>{index + 1}</th>
+                <td>{tuition.student?.email}</td>
                 <td>{tuition.title}</td>
                 <td>{tuition.subject}</td>
                 <td>{tuition.location}</td>

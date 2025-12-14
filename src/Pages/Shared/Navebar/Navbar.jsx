@@ -81,12 +81,7 @@ const Navbar = () => {
               </>
             )}
 
-            <Link
-              className="btn text-gray-700 hover:text-yellow-500"
-              to="/beatuitors"
-            >
-              Be a Tutor
-            </Link>
+           
           </div>
 
           {/* Mobile menu button */}
@@ -129,12 +124,7 @@ const Navbar = () => {
                   </Link>
                 </>
               )}
-              <Link
-                className="btn text-gray-700 hover:text-yellow-500"
-                to="/beatuitors"
-              >
-                Be a Tutor
-              </Link>
+              
             </div>
           </div>
         )}
