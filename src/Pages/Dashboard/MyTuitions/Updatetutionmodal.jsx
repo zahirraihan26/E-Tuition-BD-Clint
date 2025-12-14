@@ -4,7 +4,6 @@ import Swal from 'sweetalert2';
 import { useQuery } from '@tanstack/react-query';
 
 const Updatetutionmodal = ({ tuitionId, isOpen, onClose, refetch }) => {
-  // Fetch tuition by ID
   const { data: tuition, isLoading } = useQuery({
     queryKey: ['tuition', tuitionId],
     queryFn: async () => {
@@ -35,7 +34,7 @@ const Updatetutionmodal = ({ tuitionId, isOpen, onClose, refetch }) => {
     }
   }, [tuition]);
 
-  if (!isOpen || !tuition || isLoading) return null;
+  if (!isOpen || isLoading) return null;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -66,42 +65,46 @@ const Updatetutionmodal = ({ tuitionId, isOpen, onClose, refetch }) => {
   };
 
   return (
-    <div className="fixed inset-0  bg-opacity-40 flex items-center justify-center z-50">
-      <div className="bg-white rounded-xl shadow-xl w-11/12 max-w-md p-6 relative">
+    <div className="fixed inset-0  bg-opacity-50 flex items-center justify-center z-50 px-4">
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 relative animate-fadeIn">
+        {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-lg font-bold"
+          className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-2xl font-bold"
         >
-          ✕
+          &times;
         </button>
 
-        <h2 className="text-2xl font-semibold text-center mb-5 text-gray-800">Update Tuition</h2>
+        {/* Modal Title */}
+        <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">Update Tuition</h2>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {["subject","title","location","budget","schedule"].map((field) => (
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="space-y-5">
+          {["subject", "title", "location", "budget", "schedule"].map((field) => (
             <div key={field}>
               <label className="block text-gray-700 font-medium mb-1 capitalize">{field}</label>
               <input
                 type={field === "budget" ? "number" : "text"}
                 value={formData[field] ?? ""}
                 onChange={(e) => setFormData({ ...formData, [field]: e.target.value })}
-                className="input input-bordered w-full border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:outline-none bg-white"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:outline-none transition duration-200"
                 placeholder={`Enter ${field}`}
               />
             </div>
           ))}
 
+          {/* Buttons */}
           <div className="flex justify-end gap-3 mt-4">
             <button
               type="button"
               onClick={onClose}
-              className="btn btn-outline px-4 py-2 rounded-lg hover:bg-gray-100"
+              className="px-5 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100 transition"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="btn btn-primary px-4 py-2 rounded-lg hover:bg-yellow-500"
+              className="px-5 py-2 rounded-lg bg-yellow-500 text-white font-semibold hover:bg-yellow-600 transition"
             >
               Update
             </button>

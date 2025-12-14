@@ -5,7 +5,7 @@ import useRole from '../../../hooks/useRole';
 
 const Profile = () => {
   const { user } = useAuth();
-  const [role, isRoleLoading] = useRole();
+  const {role, isRoleLoading} = useRole();
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100 p-4">
@@ -43,12 +43,12 @@ const Profile = () => {
 
         {/* Actions */}
         <div className="flex justify-center">
-          <Link
+          <div
             
             className="flex-1 max-w-xs text-center bg-green-500 hover:bg-green-700 text-white py-2 rounded-lg shadow transition-colors duration-300"
           >
             Update Profile
-          </Link>
+          </div>
         </div>
 
         {/* Nested Routes */}

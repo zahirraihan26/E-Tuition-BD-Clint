@@ -2,150 +2,138 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../../hooks/useAuth';
 import axios from 'axios';
-import { useMutation } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 
 const NewTuition = () => {
-    const { user } = useAuth()
+  const { user } = useAuth();
 
-    // use mutation trans query 
-    const {
-        mutateAsync,
-        reset: mutationReset, } = useMutation({
-            mutationFn: async payload =>
-                await axios.post(`${import.meta.env.VITE_API_URL}/tuitions`, payload),
-            onSuccess: data => {
-                console.log(data)
-                toast.success('Tuition added successfully!');
-                mutationReset()
-                // queary key validation date
-            },
+  const { mutateAsync, reset: mutationReset } = useMutation({
+    mutationFn: async (payload) => await axios.post(`${import.meta.env.VITE_API_URL}/tuitions`, payload),
+    onSuccess: ( ) => {
+      toast.success('Tuition added successfully!');
+      mutationReset();
+    },
+  });
 
+  const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
-        })
+  const handelNewTuition = async (data) => {
+    const { title, subject, description, location, budget, schedule } = data;
 
-    const { register, handleSubmit, formState: { errors }, reset } = useForm()
-
-
-
-    const handelNewTuition = async (data) => {
-        const { title, subject, description, location, budget, schedule, } = data;
-
-        const Tuitionsdata = {
-            title,
-            subject,
-            description,
-            location,
-
-            budget,
-            schedule,
-            status: "pending", 
-            createdAt: new Date(),
-            student: {
-                image: user?.photoURL,
-                name: user?.displayName,
-                email: user?.email,
-
-            },
-        };
-
-        try {
-            await mutateAsync(Tuitionsdata);
-            reset(); // form reset after success
-        } catch (error) {
-            console.log("Error:", error);
-            toast.error("Something went wrong!");
-        }
-
+    const Tuitionsdata = {
+      title,
+      subject,
+      description,
+      location,
+      budget,
+      schedule,
+      status: "pending",
+      createdAt: new Date(),
+      student: {
+        image: user?.photoURL,
+        name: user?.displayName,
+        email: user?.email,
+      },
     };
 
-    return (
-        <div className='max-w-3xl mx-auto bg-white p-8 shadow-md rounded-lg'>
-            <h2 className='text-3xl font-bold mb-6 text-gray-800'> Add New Tuition</h2>
+    try {
+      await mutateAsync(Tuitionsdata);
+      reset();
+    } catch (error) {
+      console.log("Error:", error);
+      toast.error("Something went wrong!");
+    }
+  };
 
-            <form onSubmit={handleSubmit(handelNewTuition)} className='space-y-5'>
+  return (
+    <div className="max-w-4xl mx-auto p-6 md:p-10 bg-white shadow-lg rounded-2xl">
+      <h2 className="text-3xl font-bold mb-8 text-gray-800 text-center md:text-left">Add New Tuition</h2>
 
-                {/* Title */}
-                <div>
-                    <label className="block font-semibold mb-1">Title *</label>
-                    <input
-                        type="text"
-                        {...register('title', { required: "Title is required" })}
-                        className="input input-bordered w-full"
-                        placeholder="e.g., Need help with Calculus"
-                    />
-                    {errors.title && <p className="text-red-500 text-sm">{errors.title.message}</p>}
-                </div>
+      <form onSubmit={handleSubmit(handelNewTuition)} className="space-y-6">
+        {/* Title & Subject */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label className="block font-semibold mb-1 text-gray-700">Title *</label>
+            <input
+              type="text"
+              {...register('title', { required: "Title is required" })}
+              className="input input-bordered w-full border-gray-300 focus:border-yellow-400 focus:ring focus:ring-yellow-200 rounded-lg"
+              placeholder="e.g., Need help with Calculus"
+            />
+            {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title.message}</p>}
+          </div>
 
-                {/* Subject */}
-                <div>
-                    <label className="block font-semibold mb-1">Subject *</label>
-                    <input
-                        {...register('subject', { required: "Subject is required" })}
-                        className="input input-bordered w-full"
-                        placeholder="e.g., Physics"
-                    />
-                    {errors.subject && <p className="text-red-500 text-sm">{errors.subject.message}</p>}
-                </div>
-
-                {/* Description */}
-                <div>
-                    <label className="block font-semibold mb-1">Description *</label>
-                    <textarea
-                        {...register('description', { required: "Description is required" })}
-                        className="textarea textarea-bordered w-full"
-                        placeholder="Describe what you need help with..."
-                        rows={4}
-                    ></textarea>
-                    {errors.description && <p className="text-red-500 text-sm">{errors.description.message}</p>}
-                </div>
-
-                {/* Location */}
-                <div>
-                    <label className="block font-semibold mb-1">Location *</label>
-                    <input
-                        type="text"
-                        {...register('location', { required: "Location is required" })}
-                        className="input input-bordered w-full"
-                        placeholder="e.g., Online, Dhaka"
-                    />
-                    {errors.location && <p className="text-red-500 text-sm">{errors.location.message}</p>}
-                </div>
-
-                {/* Budget */}
-                <div>
-                    <label className="block font-semibold mb-1">Budget ($/hr) *</label>
-                    <input
-                        type="number"
-                        {...register('budget', { required: "Budget is required" })}
-                        className="input input-bordered w-full"
-                        placeholder="e.g., 30"
-                    />
-                    {errors.budget && <p className="text-red-500 text-sm">{errors.budget.message}</p>}
-                </div>
-
-                {/* Preferred Schedule */}
-                <div>
-                    <label className="block font-semibold mb-1">Preferred Schedule *</label>
-                    <input
-                        type="text"
-                        {...register('schedule', { required: "Schedule is required" })}
-                        className="input input-bordered w-full"
-                        placeholder="e.g., Weekends, 3–5 PM"
-                    />
-                    {errors.schedule && <p className="text-red-500 text-sm">{errors.schedule.message}</p>}
-                </div>
-
-                {/* Submit Button */}
-                <input
-                    type="submit"
-                    className='btn bg-yellow-500 text-white px-6 py-2 rounded-lg hover:bg-yellow-600 w-full'
-                    value="Add Tuition"
-                />
-
-            </form>
+          <div>
+            <label className="block font-semibold mb-1 text-gray-700">Subject *</label>
+            <input
+              {...register('subject', { required: "Subject is required" })}
+              className="input input-bordered w-full border-gray-300 focus:border-yellow-400 focus:ring focus:ring-yellow-200 rounded-lg"
+              placeholder="e.g., Physics"
+            />
+            {errors.subject && <p className="text-red-500 text-sm mt-1">{errors.subject.message}</p>}
+          </div>
         </div>
-    );
+
+        {/* Description */}
+        <div>
+          <label className="block font-semibold mb-1 text-gray-700">Description *</label>
+          <textarea
+            {...register('description', { required: "Description is required" })}
+            className="textarea textarea-bordered w-full border-gray-300 focus:border-yellow-400 focus:ring focus:ring-yellow-200 rounded-lg"
+            placeholder="Describe what you need help with..."
+            rows={4}
+          />
+          {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description.message}</p>}
+        </div>
+
+        {/* Location & Budget */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label className="block font-semibold mb-1 text-gray-700">Location *</label>
+            <input
+              type="text"
+              {...register('location', { required: "Location is required" })}
+              className="input input-bordered w-full border-gray-300 focus:border-yellow-400 focus:ring focus:ring-yellow-200 rounded-lg"
+              placeholder="e.g., Online, Dhaka"
+            />
+            {errors.location && <p className="text-red-500 text-sm mt-1">{errors.location.message}</p>}
+          </div>
+
+          <div>
+            <label className="block font-semibold mb-1 text-gray-700">Budget ($/hr) *</label>
+            <input
+              type="number"
+              {...register('budget', { required: "Budget is required" })}
+              className="input input-bordered w-full border-gray-300 focus:border-yellow-400 focus:ring focus:ring-yellow-200 rounded-lg"
+              placeholder="e.g., 30"
+            />
+            {errors.budget && <p className="text-red-500 text-sm mt-1">{errors.budget.message}</p>}
+          </div>
+        </div>
+
+        {/* Schedule */}
+        <div>
+          <label className="block font-semibold mb-1 text-gray-700">Preferred Schedule *</label>
+          <input
+            type="text"
+            {...register('schedule', { required: "Schedule is required" })}
+            className="input input-bordered w-full border-gray-300 focus:border-yellow-400 focus:ring focus:ring-yellow-200 rounded-lg"
+            placeholder="e.g., Weekends, 3–5 PM"
+          />
+          {errors.schedule && <p className="text-red-500 text-sm mt-1">{errors.schedule.message}</p>}
+        </div>
+
+        {/* Submit */}
+        <button
+          type="submit"
+          className="w-full md:w-auto bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-transform transform hover:-translate-y-1"
+        >
+          Add Tuition
+        </button>
+      </form>
+    </div>
+  );
 };
 
 export default NewTuition;

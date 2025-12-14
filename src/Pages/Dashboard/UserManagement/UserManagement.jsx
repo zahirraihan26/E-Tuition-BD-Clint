@@ -2,6 +2,7 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
+import { FaTrashAlt } from 'react-icons/fa';
 
 const UserManagement = () => {
   const axiosSecure = useAxiosSecure();
@@ -50,11 +51,7 @@ const UserManagement = () => {
       try {
         const res = await axiosSecure.delete(`/users/${userId}`);
         if (res.data.deletedCount > 0) {
-          Swal.fire(
-            'Deleted!',
-            'User has been deleted.',
-            'success'
-          );
+          Swal.fire('Deleted!', 'User has been deleted.', 'success');
           refetch();
         }
       } catch (err) {
@@ -68,64 +65,106 @@ const UserManagement = () => {
     }
   };
 
-  if (isLoading) return <p>Loading users...</p>;
-  if (error) return <p>Error loading users</p>;
+  if (isLoading) return <p className="text-center py-6">Loading users...</p>;
+  if (error) return <p className="text-center py-6 text-red-500">Error loading users</p>;
 
   return (
-    <div className="p-4">
-      <h2 className="text-2xl font-bold mb-4">
-        All Users ({users.length})
-      </h2>
+    <div className="p-4 md:p-6 bg-gray-50 min-h-screen">
+      {/* Header */}
+      <div className="mb-6">
+        <h2 className="text-3xl font-bold text-gray-800 mb-1">User Management</h2>
+        <p className="text-gray-500">Manage all registered users in your platform ({users.length})</p>
+      </div>
 
-      {/* Table responsive wrapper */}
-      <div className="overflow-x-auto">
-        <table className="table table-zebra w-full min-w-[600px]">
-          <thead>
+      {/* Table for large screens */}
+      <div className="hidden md:block overflow-x-auto">
+        <table className="w-full border border-gray-200 rounded-lg shadow-sm min-w-[700px]">
+          <thead className="bg-gradient-to-r from-blue-100 to-blue-50">
             <tr>
-              <th>#</th>
-              <th className="hidden sm:table-cell">Photo</th> {/* Hide on xs */}
-              <th>Name</th>
-              <th>Email</th>
-              <th>Role</th>
-              <th>Actions</th>
+              <th className="px-4 py-2 text-left">#</th>
+              <th className="px-4 py-2">Photo</th>
+              <th className="px-4 py-2 text-left">Name</th>
+              <th className="px-4 py-2 text-left">Email</th>
+              <th className="px-4 py-2 text-left">Role</th>
+              <th className="px-4 py-2 text-left">Actions</th>
             </tr>
           </thead>
           <tbody>
             {users.map((user, index) => (
-              <tr key={user._id}>
-                <td>{index + 1}</td>
-                <td className="hidden sm:table-cell">
+              <tr key={user._id} className="hover:bg-gray-50 transition-colors duration-150">
+                <td className="px-4 py-2">{index + 1}</td>
+                <td className="px-4 py-2">
                   <img
-                    src={user.photoURL }
+                    src={user.photoURL}
                     alt={user.name}
-                    className="w-10 h-10 rounded-full object-cover"
+                    className="w-10 h-10 rounded-full object-cover mx-auto"
                   />
                 </td>
-                <td>{user.name}</td>
-                <td className="break-all">{user.email}</td>
-                <td>
+                <td className="px-4 py-2 font-medium text-gray-700">{user.name}</td>
+                <td className="px-4 py-2 break-all text-gray-600">{user.email}</td>
+                <td className="px-4 py-2">
                   <select
                     value={user.role}
                     onChange={(e) => handleRoleChange(user._id, e.target.value)}
-                    className="select select-bordered select-sm"
+                    className="select select-bordered select-sm w-full max-w-[140px]"
                   >
                     <option value="student">Student</option>
                     <option value="tutor">Tutor</option>
                     <option value="admin">Admin</option>
                   </select>
                 </td>
-                <td>
+                <td className="px-4 py-2">
                   <button
                     onClick={() => handleDeleteUser(user._id)}
-                    className="btn btn-error btn-sm"
+                    className="flex items-center gap-1 btn btn-error btn-sm hover:bg-red-600 transition-colors duration-150"
                   >
-                    Delete
+                    <FaTrashAlt className="w-3 h-3" /> Delete
                   </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* Card layout for small screens */}
+      <div className="md:hidden flex flex-col gap-4">
+        {users.map((user, index) => (
+          <div
+            key={user._id}
+            className="bg-white shadow-md rounded-lg p-4 flex flex-col sm:flex-row items-center sm:justify-between gap-3"
+          >
+            <div className="flex items-center gap-3">
+              <span className="font-semibold">{index + 1}.</span>
+              <img
+                src={user.photoURL}
+                alt={user.name}
+                className="w-12 h-12 rounded-full object-cover"
+              />
+              <div>
+                <p className="font-medium text-gray-700">{user.name}</p>
+                <p className="text-gray-500 text-sm break-all">{user.email}</p>
+              </div>
+            </div>
+            <div className="flex flex-col sm:flex-row items-center gap-2 mt-2 sm:mt-0">
+              <select
+                value={user.role}
+                onChange={(e) => handleRoleChange(user._id, e.target.value)}
+                className="select select-bordered select-sm w-full max-w-[120px]"
+              >
+                <option value="student">Student</option>
+                <option value="tutor">Tutor</option>
+                <option value="admin">Admin</option>
+              </select>
+              <button
+                onClick={() => handleDeleteUser(user._id)}
+                className="flex items-center gap-1 btn btn-error btn-sm hover:bg-red-600 transition-colors duration-150"
+              >
+                <FaTrashAlt className="w-3 h-3" /> Delete
+              </button>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

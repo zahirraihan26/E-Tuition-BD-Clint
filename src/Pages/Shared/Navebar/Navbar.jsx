@@ -33,7 +33,7 @@ const Navbar = () => {
       {
         user && <>
          <li>
-        <NavLink to="/dashboard/my-tuitions" onClick={() => setIsOpen(false)}>  My Tuitions </NavLink>
+        <NavLink to="/dashboard/my-tuitions" onClick={() => setIsOpen(false)}> Dashborad </NavLink>
       </li>
         </>
       }

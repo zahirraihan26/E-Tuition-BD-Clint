@@ -14,6 +14,8 @@ const TuitionsCard = ({ Tuitions }) => {
     subject,
     title,
     _id,
+    createdAt
+ 
   } = Tuitions || {};
 
   return (
@@ -37,11 +39,11 @@ const TuitionsCard = ({ Tuitions }) => {
         </div>
 
         {/* Time */}
-        <p className="text-sm text-gray-400">2 days ago</p>
+        <p className="text-sm text-gray-400">{createdAt}</p>
       </div>
 
       {/* Title */}
-      <h3 className="text-xl font-bold text-yellow-500 mt-4">
+      <h3 className="text-xl font-bold hover:text-yellow-500 mt-4">
         {title}
       </h3>
 
@@ -69,7 +71,7 @@ const TuitionsCard = ({ Tuitions }) => {
 
          {/* View Details button */}
         
-          <Link to={`/tuitions/${_id}`} className="btn btn-primary">
+          <Link to={`/tuitions/${_id}`} className="btn bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600">
             View Details
           </Link>
      
