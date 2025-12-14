@@ -18,6 +18,7 @@ import Studentpaymenthistory from "../Pages/Dashboard/Studentpaymenthistory/Stud
 import TutorRevenue from "../Pages/Dashboard/TutorRevenue/TutorRevenue";
 import Profile from "../Pages/Dashboard/Common/Profile";
 import TuitionManagement from "../Pages/Dashboard/TuitionManagement/TuitionManagement";
+import UserManagement from "../Pages/Dashboard/UserManagement/UserManagement";
 
 
 export const router = createBrowserRouter([
@@ -95,8 +96,12 @@ export const router = createBrowserRouter([
         Component:TutorRevenue
       },
 
-      
+
       // Admin page 
+      {
+        path:'user-management',
+        Component:UserManagement
+      },
       {
         path:'tuition-management',
         Component:TuitionManagement

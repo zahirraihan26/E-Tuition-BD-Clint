@@ -9,7 +9,8 @@ import { saveorupdateUser } from '../../../Utils';
 
 const Register = () => {
 
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, watch ,formState: { errors } } = useForm();
+  const role = watch("role"); 
   const { registerUser, updateUserProfile } = useAuth()
 
   const location = useLocation()
@@ -45,8 +46,13 @@ const Register = () => {
                   name: data.name,
                   email: data.email,
                   photoURL: res.data.data.url,
-                  
+                  role: data.role,
+
                 };
+                if (data.role === "tutor") {
+                  userInfo.qualification = data.qualification;
+                  userInfo.experience = data.experience;
+                }
 
                 saveorupdateUser(userInfo)
                   .then(() => {
@@ -124,9 +130,50 @@ const Register = () => {
             {errors.password?.type === 'minLength' &&
               <p className='text-red-500'>Password must be 6 characters or longer</p>
             }
-            {/* {
-                        errors.password?.type === 'pattern' && <p className='text-red-500'> password must have 1 upper case 1 lower case 1 number and one spasal char </p>
-                    } */}
+
+
+            {/* Role */}
+            <label className="label">Register As</label>
+            <select
+              {...register("role", { required: true })}
+              className="select select-bordered"
+            >
+              <option value="">Select Role</option>
+              <option value="student">Student</option>
+              <option value="tutor">Tutor</option>
+            </select>
+            {errors.role && <p className="text-red-500">Role is required</p>}
+
+            {/* 👇 Tutor only fields */}
+            {role === "tutor" && (
+              <>
+                {/* Qualification */}
+                <label className="label">Qualification</label>
+                <input
+                  type="text"
+                  {...register("qualification", { required: true })}
+                  className="input input-bordered"
+                  placeholder="e.g. BSc in CSE"
+                />
+                {errors.qualification && (
+                  <p className="text-red-500">Qualification is required</p>
+                )}
+
+                {/* Experience */}
+                <label className="label">Experience (Years)</label>
+                <input
+                  type="number"
+                  {...register("experience", { required: true })}
+                  className="input input-bordered"
+                  placeholder="e.g. 3"
+                />
+                {errors.experience && (
+                  <p className="text-red-500">Experience is required</p>
+                )}
+              </>)
+            }
+
+
             {/* Email */}
             <label className="label">phn Number</label>
             <input
@@ -135,6 +182,8 @@ const Register = () => {
               className="input"
               placeholder="phn"
             />
+
+
 
             <div>
               <a className="link link-hover">Forgot password?</a>

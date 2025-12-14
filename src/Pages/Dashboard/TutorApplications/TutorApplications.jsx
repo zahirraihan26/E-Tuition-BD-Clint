@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import useAuth from "../../../hooks/useAuth";
 import { IoMdCheckbox } from "react-icons/io";
 import { MdCancelPresentation } from "react-icons/md";
+import { FaEdit } from "react-icons/fa";
+import LoadingSpinner from "../../../Components/LoadingSpinner";
+import Swal from "sweetalert2";
+import UpdatetiturinfoModal from "./UpdatetiturinfoModal";
 
 const TutorApplications = () => {
   const { user } = useAuth(); // logged-in tutor
+  const [selectedApplication, setSelectedApplication] = useState(null);
 
-  const { data: applications = [], isLoading } = useQuery({
+  const { data: applications = [], isLoading, refetch } = useQuery({
     queryKey: ["tutorApplications", user?.email],
     enabled: !!user?.email,
     queryFn: async () => {
@@ -19,7 +24,26 @@ const TutorApplications = () => {
     },
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <LoadingSpinner></LoadingSpinner>
+
+
+  const handleDelete = async (id) => {
+    const confirm = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to undo this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    if (confirm.isConfirmed) {
+      await axios.delete(
+        `${import.meta.env.VITE_API_URL}/applications/${id}`
+      );
+      refetch();
+      Swal.fire("Deleted!", "Application removed.", "success");
+    }
+  };
 
   return (
     <div className="p-6">
@@ -37,6 +61,8 @@ const TutorApplications = () => {
                 <th>subject</th>
                 <th>tuitionId</th>
                 <th>Apply time</th>
+                <th>Qualifications</th>
+                <th>Experience</th>
                 <th>Budget</th>
                 <th>Status</th>
                 <th>Actions</th>
@@ -51,6 +77,8 @@ const TutorApplications = () => {
                   <td>{app.subject}</td>
                   <td>{app.tuitionId}</td>
                   <td>{app.appliedAt}</td>
+                  <td>{app.qualifications}</td>
+                  <td>{app.experience}</td>
                   <td>${app.expectedSalary}</td>
 
                   <td className="font-semibold">
@@ -67,8 +95,16 @@ const TutorApplications = () => {
                     </span></td>
 
                   <td className="flex gap-3">
-
-                    <button className="btn btn-square hover:bg-red-500 text-xl">
+                    <button
+                      disabled={app.status !== "pending"}
+                      onClick={() => setSelectedApplication(app)}
+                      className="btn btn-square hover:bg-amber-300"
+                    >
+                      <FaEdit />
+                    </button>
+                    <button onClick={() => handleDelete(app._id)}
+                      disabled={app.status !== "pending"}
+                      className="btn btn-square hover:bg-red-500">
                       <MdCancelPresentation />
                     </button>
                   </td>
@@ -78,6 +114,14 @@ const TutorApplications = () => {
 
           </table>
         </div>
+
+      )}
+      {selectedApplication && (
+        <UpdatetiturinfoModal
+          application={selectedApplication}
+          onClose={() => setSelectedApplication(null)}
+          refetch={refetch}
+        />
       )}
     </div>
   );

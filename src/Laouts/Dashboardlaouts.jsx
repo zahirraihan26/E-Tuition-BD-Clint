@@ -1,11 +1,12 @@
 import React from 'react';
-import { FaBookMedical, FaBookOpen, FaChalkboardTeacher, FaUser } from 'react-icons/fa';
+import { FaBookMedical, FaBookOpen, FaChalkboardTeacher, FaUser, FaUsers } from 'react-icons/fa';
 import { FaUserGraduate } from 'react-icons/fa6';
 import { MdManageAccounts, MdOutlinePayments } from 'react-icons/md';
 import { Link, NavLink, Outlet } from 'react-router';
 
 
 const Dashboardlaouts = () => {
+  
     return (
         <div className="drawer lg:drawer-open">
             <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -74,6 +75,12 @@ const Dashboardlaouts = () => {
                           </li>
                           
                             {/* Admin  */}
+                            <li>
+                            <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="User Management" to="/dashboard/user-management">
+                            <FaUsers />
+                            <span className="is-drawer-close:hidden">User Management</span></NavLink>
+                          </li>
+
                             <li>
                             <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Tuition Management" to="/dashboard/tuition-management">
                             <MdManageAccounts />
