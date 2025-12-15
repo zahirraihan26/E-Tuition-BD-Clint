@@ -83,7 +83,7 @@ const Navbar = () => {
       {user && (
         <li>
           <NavLink
-            to="/dashboard/my-tuitions"
+            to="/dashboard"
             onClick={() => setIsOpen(false)}
             className={({ isActive }) =>
               isActive

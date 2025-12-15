@@ -26,6 +26,9 @@ import Tuitorlisting from "../Components/Tuitrlisting/Tuitorlisting";
 import Adminrouts from "./Adminrouts";
 import Tuitorrouts from "./Tuitorrouts";
 import Error from "../Components/Homepagedata/Error";
+import Studenrouts from "./Studenrouts";
+import Dashboardhome from "../Pages/Dashboard/DashboardHome/Dashboardhome";
+import Contactus from "../Components/Homepagedata/Contactus";
 
 
 export const router = createBrowserRouter([
@@ -54,6 +57,10 @@ export const router = createBrowserRouter([
         path: "/about",
         Component: AboutUs
       },
+      {
+        path:"/contact",
+        Component:Contactus
+      },
           {
         path: '*',
         element: <Error></Error>
@@ -80,26 +87,35 @@ export const router = createBrowserRouter([
     element: <Privetrouts><Dashboardlaouts></Dashboardlaouts></Privetrouts>,
     children: [
       {
+        index:true,
+        Component:Dashboardhome
+      },
+      {
         path: 'my-tuitions',
-        Component: MyTuitions
+        // Component: MyTuitions
+        element:<Studenrouts><MyTuitions></MyTuitions></Studenrouts>
       },
       {
         path: 'new-tuition',
-        Component: NewTuition
+        // Component: NewTuition
+        element:<Studenrouts><NewTuition></NewTuition></Studenrouts>
       },
       {
         path: 'applied-tutors',
-        Component: AppliedTutors
+        // Component: AppliedTutors
+        element:<Studenrouts><AppliedTutors></AppliedTutors></Studenrouts>
       },
       // payment
       {
         path: 'payment-success',
-        Component: PaymentSuccess
+        // Component: PaymentSuccess
+        element:<Studenrouts><PaymentSuccess></PaymentSuccess></Studenrouts>
       },
       // student payment history 
       {
         path: 'student-paymenthistory',
-        Component: Studentpaymenthistory
+        // Component: Studentpaymenthistory
+        element:<Studenrouts><Studentpaymenthistory></Studentpaymenthistory></Studenrouts>
       },
       // techer section
       {
