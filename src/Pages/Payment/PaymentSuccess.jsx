@@ -25,7 +25,7 @@ const PaymentSuccess = () => {
                     to='/dashboard/student-paymenthistory'
                     className='inline-block  font-semibold py-2 px-4 rounded hover:bg-lime-600 transition duration-300'
                 >
-                    Go to My Orders
+                    See payment history
                 </Link>
             </div>
         </div>

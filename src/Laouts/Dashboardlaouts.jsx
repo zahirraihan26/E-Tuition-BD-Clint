@@ -3,9 +3,15 @@ import { FaBookMedical, FaBookOpen, FaChalkboardTeacher, FaChartLine, FaUser, Fa
 import { FaUserGraduate } from 'react-icons/fa6';
 import { MdManageAccounts, MdOutlinePayments } from 'react-icons/md';
 import { Link, NavLink, Outlet } from 'react-router';
+import useRole from '../hooks/useRole';
+import LoadingSpinner from '../Components/LoadingSpinner';
 
 
 const Dashboardlaouts = () => {
+
+  const { role, isRoleLoading } = useRole()
+
+  if (isRoleLoading) return <LoadingSpinner></LoadingSpinner>;
 
   return (
     <div className="drawer lg:drawer-open">
@@ -40,58 +46,74 @@ const Dashboardlaouts = () => {
             </li>
 
             {/*  dashboard links */}
-            <li>
-              <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="MyTuition" to="/dashboard/my-tuitions"> <FaBookOpen />
-                <span className="is-drawer-close:hidden">My-Tuitions</span>
+             {
+              role === 'student' && <>
+                <li>
+                  <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="MyTuition" to="/dashboard/my-tuitions"> <FaBookOpen />
+                    <span className="is-drawer-close:hidden">My-Tuitions</span>
 
-              </NavLink>
-            </li>
-            <li>
-              <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Add-New-Tuition" to="/dashboard/new-tuition">
-                <FaBookMedical />
-                <span className="is-drawer-close:hidden">Add-New-Tuition</span></NavLink>
-            </li>
-            <li>
-              <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Applied-tutors" to="/dashboard/applied-tutors">
-                <FaUserGraduate />
-                <span className="is-drawer-close:hidden">Applied-tutors</span></NavLink>
-            </li>
-            <li>
-              <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="student-paymenthistory" to="/dashboard/student-paymenthistory">
-                <MdOutlinePayments />
-                <span className="is-drawer-close:hidden">student payment history</span></NavLink>
-            </li>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Add-New-Tuition" to="/dashboard/new-tuition">
+                    <FaBookMedical />
+                    <span className="is-drawer-close:hidden">Add-New-Tuition</span></NavLink>
+                </li>
+                <li>
+                  <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Applied-tutors" to="/dashboard/applied-tutors">
+                    <FaUserGraduate />
+                    <span className="is-drawer-close:hidden">Applied-tutors</span></NavLink>
+                </li>
+                <li>
+                  <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="student-paymenthistory" to="/dashboard/student-paymenthistory">
+                    <MdOutlinePayments />
+                    <span className="is-drawer-close:hidden">student payment history</span></NavLink>
+                </li>
+              </>
+            }
+
             {/* teacher  */}
-            <li>
-              <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Tutor Applications" to="/dashboard/tutor-applications">
-                <FaChalkboardTeacher />
-                <span className="is-drawer-close:hidden">Tutor-Applications </span></NavLink>
-            </li>
+            {
+              role === 'tutor' && <>
 
-            <li>
-              <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Tutor-Revenue" to="/dashboard/tutor-revenue">
-                <MdOutlinePayments />
-                <span className="is-drawer-close:hidden">Tutor Revenue</span></NavLink>
-            </li>
+                <li>
+                  <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Tutor Applications" to="/dashboard/tutor-applications">
+                    <FaChalkboardTeacher />
+                    <span className="is-drawer-close:hidden">Tutor-Applications </span></NavLink>
+                </li>
+
+                <li>
+                  <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Tutor-Revenue" to="/dashboard/tutor-revenue">
+                    <MdOutlinePayments />
+                    <span className="is-drawer-close:hidden">Tutor Revenue</span></NavLink>
+                </li>
+
+              </>
+            }
 
             {/* Admin  */}
 
-            <li>
-              <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Reports & Analytics" to="/dashboard/reports-analytics">
-                <FaChartLine />
-                <span className="is-drawer-close:hidden">Reports & Analytics</span></NavLink>
-            </li>
-            <li>
-              <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="User Management" to="/dashboard/user-management">
-                <FaUsers />
-                <span className="is-drawer-close:hidden">User Management</span></NavLink>
-            </li>
+            {
+              role === 'admin' && <>
 
-            <li>
-              <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Tuition Management" to="/dashboard/tuition-management">
-                <MdManageAccounts />
-                <span className="is-drawer-close:hidden">Tuition Management</span></NavLink>
-            </li>
+                <li>
+                  <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Reports & Analytics" to="/dashboard/reports-analytics">
+                    <FaChartLine />
+                    <span className="is-drawer-close:hidden">Reports & Analytics</span></NavLink>
+                </li>
+                <li>
+                  <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="User Management" to="/dashboard/user-management">
+                    <FaUsers />
+                    <span className="is-drawer-close:hidden">User Management</span></NavLink>
+                </li>
+
+                <li>
+                  <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Tuition Management" to="/dashboard/tuition-management">
+                    <MdManageAccounts />
+                    <span className="is-drawer-close:hidden">Tuition Management</span></NavLink>
+                </li>
+              </>
+            }
 
 
 

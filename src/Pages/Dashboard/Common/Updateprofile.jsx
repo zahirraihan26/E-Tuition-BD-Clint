@@ -1,67 +1,76 @@
-import React, { useState } from 'react';
-import useAuth from '../../../hooks/useAuth';
-import { useNavigate } from 'react-router';
-import toast from 'react-hot-toast';
+import { useState } from "react";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
-const Updateprofile = () => {
-  const { user, updateUserProfile } = useAuth();
-  const [name, setName] = useState(user?.displayName || '');
-  const [photo, setPhoto] = useState(user?.photoURL || '');
-  const navigate = useNavigate();
+const UpdateProfileForm = ({ user, onUpdate }) => {
+  const axiosSecure = useAxiosSecure();
+  const [displayName, setDisplayName] = useState(user?.displayName || "");
+  const [photoURL, setPhotoURL] = useState(user?.photoURL || "");
+  const [loading, setLoading] = useState(false);
 
-  const handleUpdate = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!name || !photo) {
-      toast.error('All fields are required');
+    // User ID বা email check
+    if (!user?._id && !user?.email) {
+      Swal.fire("Error", "User information missing", "error");
       return;
     }
 
-    updateUserProfile(user, {
-      displayName: name,
-      photoURL: photo,
-    })
-      .then(() => {
-        toast.success('Profile updated successfully!');
-        navigate('/dashboard/profile');
-      })
-      .catch((err) => {
-        console.error(err);
-        toast.error('Failed to update profile');
-      });
+    setLoading(true);
+    try {
+      // Backend route check: prefer _id if available, else email
+      const endpoint = `/user/update-profile/${user._id}`;
+      const res = await axiosSecure.patch(endpoint, { displayName, photoURL });
+
+      if (res.data.success) {
+        Swal.fire("Success", "Profile updated!", "success");
+        if (onUpdate) onUpdate(); // parent থেকে state refresh
+      } else {
+        Swal.fire("Error", res.data.message || "Update failed", "error");
+      }
+    } catch (err) {
+      console.error("Update failed:", err.response?.data || err.message);
+      Swal.fire("Error", "Update failed", "error");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center">
-      <div className="card bg-base-100 w-full max-w-sm shadow-2xl">
-        <form onSubmit={handleUpdate} className="card-body">
-          <h1 className="text-2xl font-bold text-center">Update Your Account</h1>
-
-          <label className="label">Name</label>
-          <input
-            type="text"
-            className="input input-bordered"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-
-          <label className="label">Photo URL</label>
-          <input
-            type="text"
-            className="input input-bordered"
-            value={photo}
-            onChange={(e) => setPhoto(e.target.value)}
-            required
-          />
-
-          <button type="submit" className="btn btn-neutral mt-4">
-            Update Profile
-          </button>
-        </form>
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div>
+        <label className="block text-gray-600">Full Name</label>
+        <input
+          type="text"
+          value={displayName}
+          onChange={(e) => setDisplayName(e.target.value)}
+          className="border rounded-lg w-full p-2 mt-1"
+          placeholder="Enter full name"
+          required
+        />
       </div>
-    </div>
+
+      <div>
+        <label className="block text-gray-600">Photo URL</label>
+        <input
+          type="text"
+          value={photoURL}
+          onChange={(e) => setPhotoURL(e.target.value)}
+          className="border rounded-lg w-full p-2 mt-1"
+          placeholder="Enter photo URL"
+        />
+      </div>
+
+      <button
+        type="submit"
+        className="bg-yellow-400 hover:bg-yellow-500 text-white font-semibold py-2 px-6 rounded-xl w-full"
+        disabled={loading}
+      >
+        {loading ? "Updating..." : "Update Profile"}
+      </button>
+    </form>
   );
 };
 
-export default Updateprofile;
+export default UpdateProfileForm;
