@@ -1,94 +1,150 @@
-
-import { Outlet } from 'react-router';
-
+import React, { useState } from 'react';
+import { FaEnvelope, FaCalendarAlt, FaUserClock, FaIdBadge, FaEdit } from 'react-icons/fa';
 import useAuth from '../../../hooks/useAuth';
 import useRole from '../../../hooks/useRole';
-import { FaUser, FaEnvelope, FaIdBadge } from 'react-icons/fa';
-
-import { useState } from 'react';
 import UpdateProfileForm from './Updateprofile';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Profile = () => {
-  const { user, refetchUser } = useAuth();
+  const { user } = useAuth();
   const { role, isRoleLoading } = useRole();
-  const [showUpdateForm, setShowUpdateForm] = useState(false); // 🔹 state
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const accountCreated = '12/14/2025';
+  const createdFull = '12/14/2025, 11:33:58 PM';
+  const userId = 'uSwx7dlYg3ZRCkygsMf6lSwStxD3';
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-yellow-50 to-yellow-100 p-6 flex justify-center items-start">
-      <div className="w-full max-w-5xl flex flex-col md:flex-row gap-8">
+    <div className="min-h-screen bg-gray-100 px-4 py-8">
+      <div className="max-w-6xl mx-auto">
 
-        {/* Left Panel */}
-        <div className="flex flex-col items-center bg-white shadow-lg rounded-3xl p-6 md:w-1/3 relative">
-          <div className="w-36 h-36 rounded-full border-4 border-yellow-400 overflow-hidden shadow-xl mb-4 transform transition duration-500 hover:scale-105">
-            <img
-              src={user?.photoURL || 'https://via.placeholder.com/150'}
-              alt="Profile"
-              className="w-full h-full object-cover"
-            />
-          </div>
+        {/* Header */}
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-white rounded-2xl shadow-lg mb-8 p-6 text-center"
+        >
+          <h1 className="text-2xl font-bold text-gray-800">My Profile</h1>
+          <p className="text-gray-600 mt-1">Your account details at a glance.</p>
+        </motion.div>
 
-          <h2 className="text-2xl font-bold text-gray-800 text-center">{user?.displayName || "Anonymous"}</h2>
-
-          <span className="mt-2 px-4 py-1 rounded-full text-sm font-semibold text-white bg-green-500 shadow-md">
-            {isRoleLoading ? "Loading..." : role || "N/A"}
-          </span>
-
-          <div className="mt-6 w-full space-y-3">
-            <div className="flex items-center gap-3 bg-yellow-50 rounded-xl p-3 shadow-sm hover:shadow-md transition">
-              <FaEnvelope className="text-yellow-400" />
-              <span className="text-gray-700 break-words">{user?.email || "N/A"}</span>
-            </div>
-            <div className="flex items-center gap-3 bg-yellow-50 rounded-xl p-3 shadow-sm hover:shadow-md transition">
-              <FaIdBadge className="text-yellow-400" />
-              <span className="text-gray-700">{user?.uid || "N/A"}</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Right Panel */}
-        <div className="flex-1 bg-white shadow-lg rounded-3xl p-8 flex flex-col justify-between">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div className="bg-yellow-50 rounded-xl p-6 flex flex-col items-center shadow-sm hover:shadow-md transition">
-              <FaUser className="text-yellow-400 text-3xl mb-2" />
-              <span className="text-gray-500 text-sm">Total Applications</span>
-              <p className="text-gray-800 font-bold text-xl mt-1">23</p>
-            </div>
-            <div className="bg-yellow-50 rounded-xl p-6 flex flex-col items-center shadow-sm hover:shadow-md transition">
-              <FaUser className="text-yellow-400 text-3xl mb-2" />
-              <span className="text-gray-500 text-sm">Completed Transactions</span>
-              <p className="text-gray-800 font-bold text-xl mt-1">15</p>
-            </div>
-          </div>
-
-          {/* Action Buttons */}
-          <div className="mt-10 flex flex-col sm:flex-row gap-6 justify-center">
-            <button
-              onClick={() => setShowUpdateForm(!showUpdateForm)}
-              className="bg-yellow-400 hover:bg-yellow-500 text-white font-semibold py-3 px-8 rounded-3xl shadow-md hover:shadow-lg transition transform duration-300"
-            >
-              {showUpdateForm ? "Close Form" : "Update Profile"}
-            </button>
-
-            <button className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-3 px-8 rounded-3xl shadow-md hover:shadow-lg transition transform duration-300">
-              Change Password
-            </button>
-          </div>
-
-          {/* Update Form */}
-          {showUpdateForm && (
-            <div className="mt-6">
-              <UpdateProfileForm
-                user={user}
-                onUpdate={() => {
-                  refetchUser();
-                  setShowUpdateForm(false);
-                }}
+        {/* Main Profile Card */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="bg-white rounded-2xl shadow-lg overflow-hidden"
+        >
+          {/* Dark Header Section */}
+          <div className="bg-gradient-to-r from-gray-800 to-gray-900 text-white p-8 flex items-center gap-6">
+            <div className="w-24 h-24 rounded-full bg-gray-200 border-4 border-white overflow-hidden shadow-xl">
+              <img
+                src={user?.photoURL || 'https://via.placeholder.com/150'}
+                alt="Profile"
+                className="w-full h-full object-cover"
               />
             </div>
-          )}
-        </div>
+            <div className="flex-1">
+              <div className="flex items-center gap-3">
+                <span className="px-3 py-1 rounded-full text-sm font-medium bg-blue-500">
+                  {isRoleLoading ? 'Loading...' : role || 'Student'}
+                </span>
+                <h2 className="text-3xl font-bold">{user?.displayName || 'Zahir Raihan'}</h2>
+              </div>
+              <p className="text-gray-300 mt-2 flex items-center gap-2">
+                <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                Active
+              </p>
+              <p className="mt-1 text-lg">{user?.email || 'mdzahirraihanbakul@gmail.com'}</p>
+            </div>
+            {/* Edit Button */}
+            <button 
+              onClick={() => setIsModalOpen(true)}
+              className="ml-auto px-4 py-2 bg-yellow-400 text-white rounded-full flex items-center gap-2 hover:bg-yellow-500 transition"
+            >
+              <FaEdit /> Edit Profile
+            </button>
+          </div>
 
+          {/* Details Cards */}
+          <div className="p-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <motion.div whileHover={{ scale: 1.03 }} className="bg-gray-50 rounded-2xl p-6 shadow-sm">
+              <p className="text-sm text-gray-500 uppercase tracking-wider">Full Name</p>
+              <p className="text-xl font-semibold text-gray-800 mt-2">{user?.displayName || 'Zahir Raihan'}</p>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.03 }} className="bg-gray-50 rounded-2xl p-6 shadow-sm">
+              <p className="text-sm text-gray-500 uppercase tracking-wider">Email</p>
+              <p className="text-xl font-semibold text-gray-800 mt-2 break-all">{user?.email}</p>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.03 }} className="bg-gray-50 rounded-2xl p-6 shadow-sm">
+              <p className="text-sm text-gray-500 uppercase tracking-wider">Account Created</p>
+              <p className="text-xl font-semibold text-gray-800 mt-2">{accountCreated}</p>
+            </motion.div>
+          </div>
+
+          {/* Account Info */}
+          <div className="px-8 pb-8 mt-4">
+            <h3 className="text-lg font-semibold text-gray-800 mb-6">Account Information</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <motion.div whileHover={{ scale: 1.03 }} className="bg-gray-50 rounded-2xl p-6 flex items-center gap-4 shadow-sm">
+                <FaUserClock className="text-3xl text-gray-600" />
+                <div>
+                  <p className="text-sm text-gray-500">Role</p>
+                  <p className="text-xl font-semibold text-gray-800">{role || 'Student'}</p>
+                </div>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.03 }} className="bg-gray-50 rounded-2xl p-6 flex items-center gap-4 shadow-sm">
+                <div className="w-4 h-4 bg-green-500 rounded-full"></div>
+                <div>
+                  <p className="text-sm text-gray-500">Status</p>
+                  <p className="text-xl font-semibold text-green-600">Active</p>
+                </div>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.03 }} className="bg-gray-50 rounded-2xl p-6 flex items-center gap-4 shadow-sm">
+                <FaCalendarAlt className="text-3xl text-gray-600" />
+                <div>
+                  <p className="text-sm text-gray-500">Created (Full)</p>
+                  <p className="text-lg font-medium text-gray-800">{createdFull}</p>
+                </div>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.03 }} className="bg-gray-50 rounded-2xl p-6 flex items-center gap-4 shadow-sm">
+                <FaIdBadge className="text-3xl text-gray-600" />
+                <div>
+                  <p className="text-sm text-gray-500">User ID</p>
+                  <p className="text-lg font-medium text-gray-800 break-all">{user?.uid || userId}</p>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+
+        </motion.div>
       </div>
+
+      {/* Modal */}
+      <AnimatePresence>
+        {isModalOpen && (
+          <motion.div 
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }} 
+            exit={{ opacity: 0 }} 
+            className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50"
+          >
+            <motion.div 
+              initial={{ scale: 0.8 }} 
+              animate={{ scale: 1 }} 
+              exit={{ scale: 0.8 }} 
+              className="bg-white rounded-2xl p-6 shadow-lg w-full max-w-md relative"
+            >
+              <button 
+                onClick={() => setIsModalOpen(false)} 
+                className="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-xl font-bold"
+              >
+                &times;
+              </button>
+              <UpdateProfileForm />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

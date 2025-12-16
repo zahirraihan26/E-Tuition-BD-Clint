@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaBookMedical, FaBookOpen, FaChalkboardTeacher, FaChartLine, FaUser, FaUsers } from 'react-icons/fa';
+import { FaBookMedical, FaBookOpen, FaChalkboardTeacher, FaChartLine, FaGraduationCap, FaUser, FaUsers } from 'react-icons/fa';
 import { FaUserGraduate } from 'react-icons/fa6';
 import { MdManageAccounts, MdOutlinePayments } from 'react-icons/md';
 import { Link, NavLink, Outlet } from 'react-router';
@@ -23,7 +23,12 @@ const Dashboardlaouts = () => {
             {/* Sidebar toggle icon */}
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="my-1.5 inline-block size-4"><path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path><path d="M9 4v16"></path><path d="M14 10l2 2l-2 2"></path></svg>
           </label>
-          <div className="px-4">TuitionHub Dashboard</div>
+          <div className="  bg-blue-900 text-white p-3 rounded-full mr-3 shadow-lg">
+            <FaGraduationCap size={20} />
+          </div>
+          <span className="font-bold text-xl text-gray-800">
+            Tuition<span className="text-yellow-500">Hub</span>
+          </span>
         </nav>
 
         {/* Page content here */}
@@ -44,17 +49,20 @@ const Dashboardlaouts = () => {
                 <span className="is-drawer-close:hidden">Homepage</span>
               </Link>
             </li>
-            <li>
-              <Link to='/dashboard' className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Homepage">
-                {/* Home icon */}
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="my-1.5 inline-block size-4"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
-                <span className="is-drawer-close:hidden">Homepage</span>
 
-              </Link>
+            <li>
+
+
+              <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="profile" to="/dashboard">
+                <FaUser />
+                <span className="is-drawer-close:hidden">Profile</span></NavLink>
             </li>
 
+
+
+
             {/*  dashboard links */}
-             {
+            {
               role === 'student' && <>
                 <li>
                   <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="MyTuition" to="/dashboard/my-tuitions"> <FaBookOpen />
@@ -128,11 +136,11 @@ const Dashboardlaouts = () => {
           </ul>
           <ul className="menu w-full mt-auto border-t border-base-300 pt-2">
             {/* List item */}
-            <li>
+            {/* <li>
               <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="profile" to="/dashboard/profile">
                 <FaUser />
                 <span className="is-drawer-close:hidden">Profile</span></NavLink>
-            </li>
+            </li> */}
             <li>
               <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Settings">
                 {/* Settings icon */}
