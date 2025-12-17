@@ -9,8 +9,7 @@ This project was built as part of a **technical assessment** to demonstrate real
 ---
 
 ## 🌐 Live Website
-🔗 **Client Live URL:** https://github.com/zahirraihan26/E-Tuition-BD-Clint.git 
-🔗 **Server Live URL:** https://your-server-live-link.vercel.app 
+🔗 **Client Live URL:** https://lighthearted-croissant-f7f679.netlify.app/
 
 ---
 
