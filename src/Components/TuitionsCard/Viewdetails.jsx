@@ -67,7 +67,7 @@ const ViewDetails = () => {
                     <div className="flex items-center gap-2">
                         <GiGraduateCap className="text-yellow-500" />
                         <span className="font-medium">Lifestyle:</span>
-                        <span>Student, Gamer</span>
+                        <span>Student</span>
                     </div>
 
                     <div>
@@ -82,8 +82,8 @@ const ViewDetails = () => {
                     </div>
 
                     <div className="flex items-center gap-2">
-                        <span className="font-medium">Availability:</span>
-                        <span className="bg-green-100 text-green-700 px-2 py-1 rounded-full text-sm">Available</span>
+                        <span className="font-medium">Subject:</span>
+                        <span className="bg-green-100 text-green-700 px-2 py-1 rounded-full text-sm">{tuition.subject}</span>
                     </div>
 
                     {/* Apply Button: Only for tutor */}

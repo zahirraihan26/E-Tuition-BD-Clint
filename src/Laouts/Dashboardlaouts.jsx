@@ -5,10 +5,11 @@ import { MdManageAccounts, MdOutlinePayments } from 'react-icons/md';
 import { Link, NavLink, Outlet } from 'react-router';
 import useRole from '../hooks/useRole';
 import LoadingSpinner from '../Components/LoadingSpinner';
+import useAuth from '../hooks/useAuth';
 
 
 const Dashboardlaouts = () => {
-
+  const { user } = useAuth()
   const { role, isRoleLoading } = useRole()
 
   if (isRoleLoading) return <LoadingSpinner></LoadingSpinner>;
@@ -18,18 +19,78 @@ const Dashboardlaouts = () => {
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
         {/* Navbar */}
-        <nav className="navbar w-full bg-base-300">
-          <label htmlFor="my-drawer-4" aria-label="open sidebar" className="btn btn-square btn-ghost">
-            {/* Sidebar toggle icon */}
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="my-1.5 inline-block size-4"><path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path><path d="M9 4v16"></path><path d="M14 10l2 2l-2 2"></path></svg>
-          </label>
-          <div className="  bg-blue-900 text-white p-3 rounded-full mr-3 shadow-lg">
-            <FaGraduationCap size={20} />
-          </div>
-          <span className="font-bold text-xl text-gray-800">
-            Tuition<span className="text-yellow-500">Hub</span>
+       <nav className="navbar w-full bg-base-300">
+  <div className="w-full flex justify-between items-center px-6">
+
+    {/* ===== LEFT SIDE ===== */}
+    <div className="flex items-center gap-3">
+      <label
+        htmlFor="my-drawer-4"
+        aria-label="open sidebar"
+        className="btn btn-square btn-ghost"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          strokeLinejoin="round"
+          strokeLinecap="round"
+          strokeWidth="2"
+          fill="none"
+          stroke="currentColor"
+          className="size-5"
+        >
+          <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" />
+          <path d="M9 4v16" />
+          <path d="M14 10l2 2l-2 2" />
+        </svg>
+      </label>
+
+      <div className="flex items-center">
+        <div className="bg-blue-900 text-white p-3 rounded-full mr-3 shadow-lg">
+          <FaGraduationCap size={20} />
+        </div>
+        <span className="font-bold text-xl text-gray-800">
+          Tuition<span className="text-yellow-500">Hub</span>
+        </span>
+      </div>
+    </div>
+
+    {/* ===== RIGHT SIDE ===== */}
+    <div className="flex items-center gap-3">
+
+      {/* Avatar */}
+      <div className="w-10 h-10 rounded-full border-2  border-gray-400 shadow-md overflow-hidden flex hidden md:block items-center justify-center bg-blue-600 text-white font-semibold relative">
+        {/* First Letter fallback */}
+        {!user?.photoURL && (
+          <span>
+            {user?.displayName?.charAt(0)?.toUpperCase() || 'U'}
           </span>
-        </nav>
+        )}
+
+        {/* Photo */}
+        {user?.photoURL && (
+          <img
+            src={user.photoURL}
+            alt="User"
+            className="w-full h-full object-cover absolute inset-0"
+          />
+        )}
+      </div>
+
+      {/* User Info */}
+      <div className="leading-tight hidden md:block">
+        <h3 className="text-sm font-medium text-gray-800">
+          {user?.displayName || 'User'}
+        </h3>
+        <p className="text-xs text-gray-500">
+          {user?.email}
+        </p>
+      </div>
+
+    </div>
+  </div>
+</nav>
+
 
         {/* Page content here */}
         <Outlet></Outlet>

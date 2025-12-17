@@ -10,8 +10,12 @@ const Profile = () => {
   const { role, isRoleLoading } = useRole();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const accountCreated = '12/14/2025';
-  const createdFull = '12/14/2025, 11:33:58 PM';
+  const accountCreated = user?.metadata?.creationTime
+  ? new Date(user.metadata.creationTime).toLocaleDateString()
+  : 'N/A';
+  const createdFull =user?.metadata?.creationTime
+  ? new Date(user.metadata.creationTime).toLocaleString()
+  : 'N/A';
   const userId = 'uSwx7dlYg3ZRCkygsMf6lSwStxD3';
 
   return (

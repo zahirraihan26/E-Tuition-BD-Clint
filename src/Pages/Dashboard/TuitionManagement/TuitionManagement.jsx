@@ -66,6 +66,7 @@ const TuitionManagement = () => {
           <thead className="bg-gradient-to-r from-blue-100 to-blue-50">
             <tr>
               <th className="px-4 py-2">#</th>
+              <th className="px-4 py-2">Photo</th>
               <th className="px-4 py-2">Email</th>
               <th className="px-4 py-2">Title</th>
               <th className="px-4 py-2">Subject</th>
@@ -81,33 +82,39 @@ const TuitionManagement = () => {
             {tuitions.map((tuition, index) => (
               <tr key={tuition._id} className="hover:bg-gray-50  transition-colors">
                 <td className="px-4 py-2">{index + 1}</td>
+                <td className="px-4 py-2">
+                  <img
+                    src={tuition.student?.image}
+                    alt="student"
+                    className="w-10 h-10 rounded-full object-cover"
+                  />
+                </td>
                 <td className="px-4 py-2">{tuition.student?.email}</td>
                 <td className="px-4 py-2">{tuition.title}</td>
                 <td className="px-4 py-2">{tuition.subject}</td>
                 <td className="px-4 py-2">{tuition.location}</td>
                 <td className="px-4 py-2">${tuition.budget}</td>
-                <td className={`px-3 py-2    ${
-                  tuition.status === "approved" ? "text-green-600" :
-                  tuition.status === "rejected" ? "text-red-600" : "text-orange-500"
-                }`}>{tuition.status}</td>
+                <td className={`px-3 py-2    ${tuition.status === "approved" ? "text-green-600" :
+                    tuition.status === "rejected" ? "text-red-600" : "text-orange-500"
+                  }`}>{tuition.status}</td>
                 <td className="px-4 py-2">{tuition.schedule}</td>
                 <td className="px-4 py-2 flex gap-2">
-                  
-                    <>
-                      <button
-                        onClick={() => handleApprove(tuition._id)}
-                        className="btn btn-sm flex items-center gap-1 bg-green-500 text-white hover:bg-green-600"
-                      >
-                        <IoMdCheckbox /> Approve
-                      </button>
-                      <button
-                        onClick={() => handleReject(tuition._id)}
-                        className="btn btn-sm flex items-center gap-1 bg-red-500 text-white hover:bg-red-600"
-                      >
-                        <MdCancelPresentation /> Reject
-                      </button>
-                    </>
-                  
+
+                  <>
+                    <button
+                      onClick={() => handleApprove(tuition._id)}
+                      className="btn btn-sm flex items-center gap-1 bg-green-500 text-white hover:bg-green-600"
+                    >
+                      <IoMdCheckbox /> Approve
+                    </button>
+                    <button
+                      onClick={() => handleReject(tuition._id)}
+                      className="btn btn-sm flex items-center gap-1 bg-red-500 text-white hover:bg-red-600"
+                    >
+                      <MdCancelPresentation /> Reject
+                    </button>
+                  </>
+
                 </td>
               </tr>
             ))}
@@ -121,10 +128,9 @@ const TuitionManagement = () => {
           <div key={tuition._id} className="bg-white shadow-md rounded-lg p-4 flex flex-col gap-6">
             <div className="flex justify-between items-center">
               <span className="font-semibold">#{index + 1}</span>
-              <span className={`px-2 py-1  text-sm font-semibold ${
-                tuition.status === "approved" ? "text-green-600" :
-                tuition.status === "rejected" ? "text-red-600" : "text-orange-500"
-              }`}>
+              <span className={`px-2 py-1  text-sm font-semibold ${tuition.status === "approved" ? "text-green-600" :
+                  tuition.status === "rejected" ? "text-red-600" : "text-orange-500"
+                }`}>
                 {tuition.status}
               </span>
             </div>
@@ -134,22 +140,22 @@ const TuitionManagement = () => {
             <p className="text-gray-700"><span className="font-medium">Location:</span> {tuition.location}</p>
             <p className="text-gray-700"><span className="font-medium">Budget:</span> ${tuition.budget}</p>
             <p className="text-gray-700"><span className="font-medium">Schedule:</span> {tuition.schedule}</p>
-            
-              <div className="flex gap-2 mt-2">
-                <button
-                  onClick={() => handleApprove(tuition._id)}
-                  className="btn btn-sm flex-1 bg-green-500 text-white hover:bg-green-600"
-                >
-                  <IoMdCheckbox /> Approve
-                </button>
-                <button
-                  onClick={() => handleReject(tuition._id)}
-                  className="btn btn-sm flex-1 bg-red-500 text-white hover:bg-red-600"
-                >
-                  <MdCancelPresentation /> Reject
-                </button>
-              </div>
-            
+
+            <div className="flex gap-2 mt-2">
+              <button
+                onClick={() => handleApprove(tuition._id)}
+                className="btn btn-sm flex-1 bg-green-500 text-white hover:bg-green-600"
+              >
+                <IoMdCheckbox /> Approve
+              </button>
+              <button
+                onClick={() => handleReject(tuition._id)}
+                className="btn btn-sm flex-1 bg-red-500 text-white hover:bg-red-600"
+              >
+                <MdCancelPresentation /> Reject
+              </button>
+            </div>
+
           </div>
         ))}
       </div>
