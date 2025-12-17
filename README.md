@@ -13,9 +13,7 @@ This project was built as part of a **technical assessment** to demonstrate real
 
 ---
 
-## 👤 Admin Credentials (For Testing)
-- **Email:** admin@email.com  
-- **Password:** admin123  
+
 
 ---
 
