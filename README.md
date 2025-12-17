@@ -1,16 +1,152 @@
-# React + Vite
+# 🎓 eTuitionBd – Tuition Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📌 Project Purpose
+**eTuitionBd** is a full-stack Tuition Management System designed to connect **students, tutors, and admins** on a single platform.  
+The system simplifies tuition posting, tutor applications, approvals, secure payments, and platform monitoring.
 
-Currently, two official plugins are available:
+This project was built as part of a **technical assessment** to demonstrate real-world problem solving, role-based systems, and production-ready deployment.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🌐 Live Website
+🔗 **Client Live URL:** https://github.com/zahirraihan26/E-Tuition-BD-Clint.git 
+🔗 **Server Live URL:** https://your-server-live-link.vercel.app 
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 👤 Admin Credentials (For Testing)
+- **Email:** admin@email.com  
+- **Password:** admin123  
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🚀 Key Features
+
+### 🔐 Authentication & Authorization
+- Firebase Authentication (Email/Password)
+- Google Login (Default role: Student)
+- Role-based dashboards (Student / Tutor / Admin)
+- JWT token verification (role, access, expiration)
+- Protected routes (no redirect on reload)
+
+---
+
+## 🏠 Public Pages
+- Home (Dynamic content + Framer Motion animations)
+- Tuitions Listing (Search, Filter, Pagination)
+- Tuition Details
+- Tutor Listing
+- Tutor Profile
+- Login / Register
+- Contact
+- Custom 404 Error Page
+
+---
+
+## 🎯 Student Dashboard
+- Post new tuition (Pending admin approval)
+- Update tuition (default saved values shown)
+- Delete tuition (confirmation popup)
+- View applied tutors
+- Approve tutor → Stripe payment
+- Reject tutor applications
+- Payment history
+- Profile settings (name & photo update)
+
+---
+
+## 🧑‍🏫 Tutor Dashboard
+- Apply for tuition (modal form)
+- Track application status
+- Update / delete application (until approved)
+- View ongoing tuitions
+- Revenue & transaction history
+
+---
+
+## 🛡️ Admin Dashboard
+- User Management  
+  - View users
+  - Update profile info
+  - Change roles (Student / Tutor / Admin)
+  - Delete users
+- Tuition Management  
+  - Review tuition posts
+  - Approve / Reject tuitions
+- Reports & Analytics  
+  - Total earnings
+  - Transaction history
+  - Charts & graphs (Recharts)
+
+---
+
+## 📊 Advanced Functionalities (Challenges)
+- Search tuitions by subject & location
+- Sort by budget & date
+- Pagination (Tuition listing)
+- Advanced filtering (class, subject, location)
+- JWT verification (role & expiration)
+
+---
+
+## 💳 Payment System
+- Stripe payment integration
+- Tutor approval only after successful payment
+- Secure transaction history
+- Revenue tracking for tutors & admins
+
+---
+
+## 🎨 UI / UX Highlights
+- Unique & polished UI (no module copy)
+- DaisyUI + Tailwind CSS
+- Fully responsive (mobile / tablet / desktop)
+- Sticky navbar & dashboard sidebar
+- Consistent button & heading styles
+- Equal image sizing & clean spacing
+
+---
+
+## ⏳ Loading & Error Handling
+- Full-screen loading spinner
+- Friendly 404 error page
+- No CORS / 404 / 504 issues in deployment
+
+---
+
+## 🛠️ Technologies Used
+
+### Client Side
+- React.js
+- React Router DOM
+- Tailwind CSS
+- DaisyUI
+- TanStack React Query
+- Firebase Authentication
+- Axios
+- Framer Motion
+- Recharts
+- Stripe JS
+
+### Server Side
+- Node.js
+- Express.js
+- MongoDB
+- JWT
+- Stripe API
+- dotenv
+- CORS
+
+---
+
+## 🔐 Environment Variables
+
+### Client (.env)
+```env
+VITE_apiKey=your_firebase_api_key
+VITE_authDomain=your_firebase_auth_domain
+VITE_projectId=your_firebase_project_id
+VITE_storageBucket=your_firebase_storage_bucket
+VITE_messagingSenderId=your_firebase_sender_id
+VITE_appId=your_firebase_app_id
+VITE_STRIPE_PUBLIC_KEY=your_stripe_public_key
