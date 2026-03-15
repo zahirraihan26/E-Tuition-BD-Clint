@@ -72,30 +72,33 @@ const ReportsAnalytics = () => {
   if (summaryLoading || paymentsLoading) return <LoadingSpinner />;
 
   return (
-    <div className="p-4 md:p-6 space-y-8 bg-gray-50 min-h-screen">
-      <h2 className="text-3xl font-bold text-gray-800">
-        Reports & Analytics
+    <div className="p-4 md:p-8 space-y-8 min-h-screen bg-base-200 transition-all duration-300">
+      <h2 className="text-3xl font-extrabold text-base-content tracking-tight">
+        Reports & <span className="text-primary">Analytics</span>
       </h2>
 
       {/* ================= Summary Cards ================= */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-gradient-to-r from-yellow-300 to-yellow-100 p-6 rounded-xl shadow hover:shadow-lg transition">
-          <h3 className="text-gray-700">Total Earnings</h3>
-          <p className="text-3xl font-bold mt-2">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="bg-gradient-to-br from-amber-500/20 to-amber-600/10 p-8 rounded-[2rem] border border-amber-500/20 shadow-xl hover:shadow-2xl transition-all duration-500 group relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-amber-500/20 transition-all duration-500"></div>
+          <h3 className="text-base-content/60 font-bold uppercase tracking-widest text-xs">Total Earnings</h3>
+          <p className="text-4xl font-black mt-3 text-base-content">
             ৳ {summary.totalEarnings || 0}
           </p>
         </div>
 
-        <div className="bg-gradient-to-r from-blue-300 to-blue-100 p-6 rounded-xl shadow hover:shadow-lg transition">
-          <h3 className="text-gray-700">Total Transactions</h3>
-          <p className="text-3xl font-bold mt-2">
+        <div className="bg-gradient-to-br from-indigo-500/20 to-indigo-600/10 p-8 rounded-[2rem] border border-indigo-500/20 shadow-xl hover:shadow-2xl transition-all duration-500 group relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-indigo-500/20 transition-all duration-500"></div>
+          <h3 className="text-base-content/60 font-bold uppercase tracking-widest text-xs">Total Transactions</h3>
+          <p className="text-4xl font-black mt-3 text-base-content">
             {summary.totalTransactions || 0}
           </p>
         </div>
 
-        <div className="bg-gradient-to-r from-green-300 to-green-100 p-6 rounded-xl shadow hover:shadow-lg transition">
-          <h3 className="text-gray-700">Average Payment</h3>
-          <p className="text-3xl font-bold mt-2">
+        <div className="bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 p-8 rounded-[2rem] border border-emerald-500/20 shadow-xl hover:shadow-2xl transition-all duration-500 group relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-emerald-500/20 transition-all duration-500"></div>
+          <h3 className="text-base-content/60 font-bold uppercase tracking-widest text-xs">Average Payment</h3>
+          <p className="text-4xl font-black mt-3 text-base-content">
             ৳{" "}
             {summary.totalTransactions
               ? Math.round(
@@ -108,23 +111,36 @@ const ReportsAnalytics = () => {
       </div>
 
       {/* ================= Daily Earnings Chart ================= */}
-      <div className="bg-white shadow rounded-xl p-6">
-        <h3 className="text-xl font-semibold mb-4">
-          Daily Earnings Overview
+      <div className="bg-base-100 shadow-2xl rounded-[2.5rem] p-10 border border-base-300/50">
+        <h3 className="text-2xl font-black mb-8 text-base-content tracking-tight">
+          Daily Earnings <span className="text-primary italic">Overview</span>
         </h3>
 
         {chartData.length ? (
           <ResponsiveContainer width="100%" height={350}>
             <BarChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" />
+              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="currentColor" className="text-base-content/10" />
               <XAxis
                 dataKey="day"
                 angle={-35}
                 textAnchor="end"
                 height={70}
+                stroke="currentColor"
+                className="text-[10px] font-bold text-base-content/40 uppercase tracking-widest"
               />
-              <YAxis />
-              <Tooltip formatter={(value) => `৳ ${value}`} />
+              <YAxis stroke="currentColor" className="text-[10px] font-bold text-base-content/40" />
+              <Tooltip 
+                contentStyle={{ 
+                  backgroundColor: 'var(--fallback-b1,oklch(var(--b1)))', 
+                  borderColor: 'var(--fallback-b3,oklch(var(--b3)))',
+                  borderRadius: '1rem',
+                  boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
+                  border: '1px solid var(--fallback-b3,oklch(var(--b3)))'
+                }}
+                itemStyle={{ color: 'var(--fallback-bc,oklch(var(--bc)))', fontWeight: 'bold' }}
+                cursor={{ fill: 'var(--fallback-b2,oklch(var(--b2)))', opacity: 0.5 }}
+                formatter={(value) => `৳ ${value}`} 
+              />
               <Bar dataKey="earnings" radius={[6, 6, 0, 0]}>
                 {chartData.map((entry, index) => (
                   <Cell
@@ -136,26 +152,27 @@ const ReportsAnalytics = () => {
             </BarChart>
           </ResponsiveContainer>
         ) : (
-          <p className="text-gray-500 text-center py-10">
-            No daily data available
-          </p>
+          <div className="p-20 text-center bg-base-200/50 rounded-3xl border border-dashed border-base-300">
+            <p className="text-base-content/30 font-bold uppercase tracking-widest text-sm">
+              No daily data available
+            </p>
+          </div>
         )}
       </div>
 
       {/* ================= Transaction History ================= */}
-      <div className="space-y-4">
-        <h3 className="text-xl font-semibold">
-          Transaction History
+      <div className="space-y-6">
+        <h3 className="text-2xl font-black text-base-content tracking-tight">
+          Transaction <span className="text-primary italic">History</span>
         </h3>
 
         {/* Desktop Table */}
-        <div className="hidden md:block overflow-x-auto bg-white shadow rounded-xl">
-          <table className="w-full">
-            <thead className="bg-gray-100">
+        <div className="hidden md:block overflow-hidden bg-base-100 shadow-2xl rounded-2xl border border-base-300/50">
+          <table className="w-full table-auto">
+            <thead className="bg-base-300">
               <tr>
                 {[
                   "#",
-                  "Student Photo",
                   "Student",
                   "Tutor",
                   "Subject",
@@ -164,38 +181,35 @@ const ReportsAnalytics = () => {
                 ].map((head) => (
                   <th
                     key={head}
-                    className="px-4 py-3 text-left text-gray-700"
+                    className="px-6 py-4 text-left text-xs font-bold text-base-content/60 uppercase tracking-widest"
                   >
                     {head}
                   </th>
                 ))}
               </tr>
             </thead>
-            <tbody>
+            <tbody className="divide-y divide-base-300/50">
               {payments.map((pay, index) => (
                 <tr
                   key={pay._id}
-                  className="hover:bg-gray-50"
+                  className="hover:bg-base-200/50 transition-colors group"
                 >
-                  <td className="px-4 py-2">
+                  <td className="px-6 py-4 text-sm font-medium">
                     {index + 1}
                   </td>
-                  <td className="px-4 py-2">
+                  <td className="px-6 py-4 text-sm text-base-content/70 font-medium truncate max-w-[200px]">
                     {pay.studentEmail}
                   </td>
-                  <td className="px-4 py-2">
-                    {pay.studentEmail}
-                  </td>
-                  <td className="px-4 py-2">
+                  <td className="px-6 py-4 text-sm text-base-content/70 font-medium truncate max-w-[200px]">
                     {pay.tutorEmail}
                   </td>
-                  <td className="px-4 py-2">
+                  <td className="px-6 py-4 text-sm font-bold text-primary">
                     {pay.subject}
                   </td>
-                  <td className="px-4 py-2 font-semibold">
+                  <td className="px-6 py-4 text-sm font-extrabold text-base-content">
                     ৳ {pay.price}
                   </td>
-                  <td className="px-4 py-2">
+                  <td className="px-6 py-4 text-xs font-bold text-base-content/40 uppercase tracking-widest">
                     {new Date(
                       pay.paidAt
                     ).toLocaleDateString()}
@@ -207,34 +221,34 @@ const ReportsAnalytics = () => {
         </div>
 
         {/* Mobile Cards */}
-        <div className="md:hidden flex flex-col gap-4">
+        <div className="md:hidden flex flex-col gap-6">
           {payments.map((pay, index) => (
             <div
               key={pay._id}
-              className="bg-white shadow rounded-xl p-4"
+              className="bg-base-100 shadow-2xl rounded-3xl p-6 flex flex-col gap-4 border border-base-300/50"
             >
-              <div className="flex justify-between">
-                <span className="font-semibold">
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-xs font-bold text-base-content/40 uppercase tracking-widest">
                   #{index + 1}
                 </span>
-                <span className="text-sm text-gray-500">
+                <span className="text-[10px] font-extrabold text-base-content/30 uppercase tracking-widest">
                   {new Date(
                     pay.paidAt
                   ).toLocaleDateString()}
                 </span>
               </div>
-              <p>Student: {pay.studentEmail}</p>
-              <p>Tutor: {pay.tutorEmail}</p>
-              <p>Subject: {pay.subject}</p>
-              <p className="font-semibold">
-                Amount: ৳ {pay.price}
-              </p>
+              <div className="space-y-3">
+                <p className="text-base-content/80 text-sm flex justify-between font-medium"><span className="text-base-content/40 uppercase text-[10px] tracking-widest font-bold">Student:</span> <span className="truncate ml-4">{pay.studentEmail}</span></p>
+                <p className="text-base-content/80 text-sm flex justify-between font-medium"><span className="text-base-content/40 uppercase text-[10px] tracking-widest font-bold">Tutor:</span> <span className="truncate ml-4">{pay.tutorEmail}</span></p>
+                <p className="text-base-content font-bold flex justify-between"><span className="text-base-content/40 uppercase text-[10px] tracking-widest font-bold">Subject:</span> <span className="text-primary">{pay.subject}</span></p>
+                <p className="text-base-content flex justify-between font-extrabold"><span className="text-base-content/40 uppercase text-[10px] tracking-widest font-bold">Amount:</span> ৳ {pay.price}</p>
+              </div>
             </div>
           ))}
         </div>
 
         {!payments.length && (
-          <p className="text-center text-gray-500">
+          <p className="text-center text-base-content/30 font-bold uppercase tracking-widest py-10">
             No payment records found
           </p>
         )}

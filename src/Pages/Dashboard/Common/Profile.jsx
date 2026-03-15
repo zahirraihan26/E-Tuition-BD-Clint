@@ -19,28 +19,28 @@ const Profile = () => {
   const userId = 'uSwx7dlYg3ZRCkygsMf6lSwStxD3';
 
   return (
-    <div className="min-h-screen bg-gray-100 px-4 py-8">
+    <div className="min-h-screen bg-base-200 px-4 py-8">
       <div className="max-w-6xl mx-auto">
 
         {/* Header */}
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white rounded-2xl shadow-lg mb-8 p-6 text-center"
+          className="bg-base-100 rounded-2xl shadow-lg mb-8 p-6 text-center border border-base-300/50"
         >
-          <h1 className="text-2xl font-bold text-gray-800">My Profile</h1>
-          <p className="text-gray-600 mt-1">Your account details at a glance.</p>
+          <h1 className="text-2xl font-bold text-base-content tracking-tight">My Profile</h1>
+          <p className="text-base-content/60 mt-1">Your account details at a glance.</p>
         </motion.div>
 
         {/* Main Profile Card */}
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="bg-white rounded-2xl shadow-lg overflow-hidden"
+          className="bg-base-100 rounded-2xl shadow-lg overflow-hidden border border-base-300/50"
         >
           {/* Dark Header Section */}
-          <div className="bg-gradient-to-r from-gray-800 to-gray-900 text-white p-8 flex items-center gap-6">
-            <div className="w-24 h-24 rounded-full bg-gray-200 border-4 border-white overflow-hidden shadow-xl">
+          <div className="bg-neutral text-neutral-content p-8 flex items-center gap-6 border-b border-white/5">
+            <div className="w-24 h-24 rounded-full bg-base-200 border-4 border-base-100 overflow-hidden shadow-xl">
               <img
                 src={user?.photoURL || 'https://via.placeholder.com/150'}
                 alt="Profile"
@@ -49,21 +49,21 @@ const Profile = () => {
             </div>
             <div className="flex-1">
               <div className="flex items-center gap-3">
-                <span className="px-3 py-1 rounded-full text-sm font-medium bg-blue-500">
+                <span className="px-3 py-1 rounded-full text-xs font-bold bg-primary text-black uppercase tracking-wider">
                   {isRoleLoading ? 'Loading...' : role || 'Student'}
                 </span>
-                <h2 className="text-3xl font-bold">{user?.displayName || 'Zahir Raihan'}</h2>
+                <h2 className="text-3xl font-extrabold tracking-tight">{user?.displayName || 'Zahir Raihan'}</h2>
               </div>
-              <p className="text-gray-300 mt-2 flex items-center gap-2">
-                <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                Active
+              <p className="text-neutral-content/60 mt-2 flex items-center gap-2 text-sm font-medium">
+                <span className="w-2 h-2 bg-success rounded-full animate-pulse"></span>
+                Active Account
               </p>
-              <p className="mt-1 text-lg">{user?.email || 'mdzahirraihanbakul@gmail.com'}</p>
+              <p className="mt-1 text-lg text-neutral-content/80 font-medium">{user?.email || 'mdzahirraihanbakul@gmail.com'}</p>
             </div>
             {/* Edit Button */}
             <button 
               onClick={() => setIsModalOpen(true)}
-              className="ml-auto px-4 py-2 bg-yellow-400 text-white rounded-full flex items-center gap-2 hover:bg-yellow-500 transition"
+              className="ml-auto px-6 py-2.5 bg-primary text-black font-bold rounded-xl flex items-center gap-2 hover:shadow-[0_0_20px_rgba(245,158,11,0.3)] transition-all duration-300"
             >
               <FaEdit /> Edit Profile
             </button>
@@ -71,50 +71,50 @@ const Profile = () => {
 
           {/* Details Cards */}
           <div className="p-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-            <motion.div whileHover={{ scale: 1.03 }} className="bg-gray-50 rounded-2xl p-6 shadow-sm">
-              <p className="text-sm text-gray-500 uppercase tracking-wider">Full Name</p>
-              <p className="text-xl font-semibold text-gray-800 mt-2">{user?.displayName || 'Zahir Raihan'}</p>
+            <motion.div whileHover={{ scale: 1.03 }} className="bg-base-200 rounded-2xl p-6 shadow-sm border border-base-300/50 transition-all">
+              <p className="text-xs font-bold text-base-content/50 uppercase tracking-widest leading-none">Full Name</p>
+              <p className="text-xl font-bold text-base-content mt-2">{user?.displayName || 'Zahir Raihan'}</p>
             </motion.div>
-            <motion.div whileHover={{ scale: 1.03 }} className="bg-gray-50 rounded-2xl p-6 shadow-sm">
-              <p className="text-sm text-gray-500 uppercase tracking-wider">Email</p>
-              <p className="text-xl font-semibold text-gray-800 mt-2 break-all">{user?.email}</p>
+            <motion.div whileHover={{ scale: 1.03 }} className="bg-base-200 rounded-2xl p-6 shadow-sm border border-base-300/50 transition-all">
+              <p className="text-xs font-bold text-base-content/50 uppercase tracking-widest leading-none">Email</p>
+              <p className="text-xl font-bold text-base-content mt-2 break-all">{user?.email}</p>
             </motion.div>
-            <motion.div whileHover={{ scale: 1.03 }} className="bg-gray-50 rounded-2xl p-6 shadow-sm">
-              <p className="text-sm text-gray-500 uppercase tracking-wider">Account Created</p>
-              <p className="text-xl font-semibold text-gray-800 mt-2">{accountCreated}</p>
+            <motion.div whileHover={{ scale: 1.03 }} className="bg-base-200 rounded-2xl p-6 shadow-sm border border-base-300/50 transition-all">
+              <p className="text-xs font-bold text-base-content/50 uppercase tracking-widest leading-none">Account Created</p>
+              <p className="text-xl font-bold text-base-content mt-2">{accountCreated}</p>
             </motion.div>
           </div>
 
           {/* Account Info */}
-          <div className="px-8 pb-8 mt-4">
-            <h3 className="text-lg font-semibold text-gray-800 mb-6">Account Information</h3>
+          <div className="px-8 pb-10 mt-4">
+            <h3 className="text-lg font-bold text-base-content mb-6 tracking-tight">Account Information</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <motion.div whileHover={{ scale: 1.03 }} className="bg-gray-50 rounded-2xl p-6 flex items-center gap-4 shadow-sm">
-                <FaUserClock className="text-3xl text-gray-600" />
+              <motion.div whileHover={{ scale: 1.03 }} className="bg-base-200 rounded-2xl p-6 flex items-center gap-4 shadow-sm border border-base-300/50 transition-all">
+                <FaUserClock className="text-3xl text-primary" />
                 <div>
-                  <p className="text-sm text-gray-500">Role</p>
-                  <p className="text-xl font-semibold text-gray-800">{role || 'Student'}</p>
+                  <p className="text-xs font-bold text-base-content/50 uppercase tracking-widest">Role</p>
+                  <p className="text-xl font-bold text-base-content">{role || 'Student'}</p>
                 </div>
               </motion.div>
-              <motion.div whileHover={{ scale: 1.03 }} className="bg-gray-50 rounded-2xl p-6 flex items-center gap-4 shadow-sm">
-                <div className="w-4 h-4 bg-green-500 rounded-full"></div>
+              <motion.div whileHover={{ scale: 1.03 }} className="bg-base-200 rounded-2xl p-6 flex items-center gap-4 shadow-sm border border-base-300/50 transition-all">
+                <div className="w-4 h-4 bg-success rounded-full shadow-[0_0_10px_rgba(34,197,94,0.4)]"></div>
                 <div>
-                  <p className="text-sm text-gray-500">Status</p>
-                  <p className="text-xl font-semibold text-green-600">Active</p>
+                  <p className="text-xs font-bold text-base-content/50 uppercase tracking-widest">Status</p>
+                  <p className="text-xl font-bold text-success">Active</p>
                 </div>
               </motion.div>
-              <motion.div whileHover={{ scale: 1.03 }} className="bg-gray-50 rounded-2xl p-6 flex items-center gap-4 shadow-sm">
-                <FaCalendarAlt className="text-3xl text-gray-600" />
+              <motion.div whileHover={{ scale: 1.03 }} className="bg-base-200 rounded-2xl p-6 flex items-center gap-4 shadow-sm border border-base-300/50 transition-all">
+                <FaCalendarAlt className="text-3xl text-primary" />
                 <div>
-                  <p className="text-sm text-gray-500">Created (Full)</p>
-                  <p className="text-lg font-medium text-gray-800">{createdFull}</p>
+                  <p className="text-xs font-bold text-base-content/50 uppercase tracking-widest">Created (Full)</p>
+                  <p className="text-lg font-bold text-base-content">{createdFull}</p>
                 </div>
               </motion.div>
-              <motion.div whileHover={{ scale: 1.03 }} className="bg-gray-50 rounded-2xl p-6 flex items-center gap-4 shadow-sm">
-                <FaIdBadge className="text-3xl text-gray-600" />
+              <motion.div whileHover={{ scale: 1.03 }} className="bg-base-200 rounded-2xl p-6 flex items-center gap-4 shadow-sm border border-base-300/50 transition-all">
+                <FaIdBadge className="text-3xl text-primary" />
                 <div>
-                  <p className="text-sm text-gray-500">User ID</p>
-                  <p className="text-lg font-medium text-gray-800 break-all">{user?.uid || userId}</p>
+                  <p className="text-xs font-bold text-base-content/50 uppercase tracking-widest">User ID</p>
+                  <p className="text-lg font-bold text-base-content break-all leading-tight">{user?.uid || userId}</p>
                 </div>
               </motion.div>
             </div>
@@ -130,17 +130,17 @@ const Profile = () => {
             initial={{ opacity: 0 }} 
             animate={{ opacity: 1 }} 
             exit={{ opacity: 0 }} 
-            className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4"
           >
             <motion.div 
-              initial={{ scale: 0.8 }} 
-              animate={{ scale: 1 }} 
-              exit={{ scale: 0.8 }} 
-              className="bg-white rounded-2xl p-6 shadow-lg w-full max-w-md relative"
+              initial={{ scale: 0.9, opacity: 0 }} 
+              animate={{ scale: 1, opacity: 1 }} 
+              exit={{ scale: 0.9, opacity: 0 }} 
+              className="bg-base-100 border border-base-300 rounded-3xl p-8 shadow-2xl w-full max-w-md relative"
             >
               <button 
                 onClick={() => setIsModalOpen(false)} 
-                className="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-xl font-bold"
+                className="absolute top-4 right-4 text-base-content/50 hover:text-primary transition-colors text-2xl font-bold"
               >
                 &times;
               </button>

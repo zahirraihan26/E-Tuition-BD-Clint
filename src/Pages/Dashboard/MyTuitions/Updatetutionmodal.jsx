@@ -65,48 +65,50 @@ const Updatetutionmodal = ({ tuitionId, isOpen, onClose, refetch }) => {
   };
 
   return (
-    <div className="fixed inset-0  bg-opacity-50 flex items-center justify-center z-50 px-4">
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 relative animate-fadeIn">
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-50 px-4 transition-all duration-300">
+      <div className="bg-base-100 border border-base-300 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.3)] w-full max-w-lg p-10 relative animate-fadeIn">
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-2xl font-bold"
+          className="absolute top-6 right-6 text-base-content/40 hover:text-primary transition-all duration-300 text-3xl font-bold"
         >
           &times;
         </button>
 
         {/* Modal Title */}
-        <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">Update Tuition</h2>
+        <h2 className="text-3xl font-extrabold text-base-content mb-8 tracking-tight text-center md:text-left">
+          Update <span className="text-primary">Tuition</span>
+        </h2>
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-5">
           {["subject", "title", "location", "budget", "schedule"].map((field) => (
             <div key={field}>
-              <label className="block text-gray-700 font-medium mb-1 capitalize">{field}</label>
+              <label className="block text-xs font-bold uppercase tracking-widest mb-2 text-base-content/60 leading-none">{field} *</label>
               <input
                 type={field === "budget" ? "number" : "text"}
                 value={formData[field] ?? ""}
                 onChange={(e) => setFormData({ ...formData, [field]: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:outline-none transition duration-200"
+                className="w-full px-4 py-3 bg-base-200/50 border border-base-300 rounded-xl focus:ring-1 focus:ring-primary focus:border-primary focus:outline-none transition-all duration-300 font-medium placeholder:text-base-content/20"
                 placeholder={`Enter ${field}`}
               />
             </div>
           ))}
 
           {/* Buttons */}
-          <div className="flex justify-end gap-3 mt-4">
+          <div className="flex justify-end gap-4 pt-4">
             <button
               type="button"
               onClick={onClose}
-              className="px-5 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100 transition"
+              className="px-8 py-3 rounded-xl border border-base-300 text-base-content font-bold hover:bg-base-200 transition-all duration-300"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-5 py-2 rounded-lg bg-yellow-500 text-white font-semibold hover:bg-yellow-600 transition"
+              className="px-10 py-3 rounded-xl bg-primary text-black font-extrabold hover:shadow-[0_0_20px_rgba(245,158,11,0.3)] transition-all duration-300 active:scale-95"
             >
-              Update
+              Update Details
             </button>
           </div>
         </form>

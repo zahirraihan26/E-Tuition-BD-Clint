@@ -9,15 +9,19 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'react-hot-toast';
 
 
+import { ThemeProvider } from './Context/ThemeContext/ThemeProvider.jsx';
+
 const queryClient = new QueryClient()
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <RouterProvider router={router} />
-         <Toaster position="top-center" reverseOrder={false} />
-      </AuthProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <RouterProvider router={router} />
+          <Toaster position="top-center" reverseOrder={false} />
+        </AuthProvider>
+      </ThemeProvider>
     </QueryClientProvider>
   </StrictMode>,
 )

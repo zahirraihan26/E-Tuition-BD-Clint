@@ -46,7 +46,7 @@ const HowItWorks = () => {
   };
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-20 bg-base-200">
       <div className="max-w-6xl mx-auto px-6 text-center">
 
         {/* Heading */}
@@ -55,9 +55,10 @@ const HowItWorks = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-4xl md:text-5xl font-bold text-gray-800 mb-4"
+          className="text-4xl md:text-5xl font-extrabold text-base-content leading-tight tracking-tight"
         >
-          How It <span className="text-orange-500">Works</span>
+          The Smart Way to{" "}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Learn & Teach</span>
         </motion.h2>
 
         <motion.p
@@ -65,7 +66,7 @@ const HowItWorks = () => {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="text-gray-600 text-lg mb-14 max-w-2xl mx-auto"
+          className="text-base-content/70 text-lg mb-14 max-w-2xl mx-auto"
         >
           Get started in minutes with our simple, streamlined process designed for students and tutors.
         </motion.p>
@@ -84,26 +85,27 @@ const HowItWorks = () => {
               variants={card}
               whileHover={{ scale: 1.05 }}
               className="
-                relative p-8 pt-16 rounded-2xl
-                bg-white/70 backdrop-blur-xl
-                shadow-lg hover:shadow-2xl
-                transition-all duration-300
-                border border-transparent
-                hover:border-orange-400/50
+                relative p-8 pt-16 rounded-3xl
+                bg-base-100/40 backdrop-blur-2xl
+                shadow-[0_20px_50px_rgba(0,0,0,0.1)] hover:shadow-[0_20px_50px_rgba(0,0,0,0.2)]
+                transition-all duration-500
+                border border-white/5
+                hover:border-primary/30
+                group
               "
             >
           
 
               {/* Icon */}
-              <div className="mx-auto mb-6 w-16 h-16 rounded-2xl bg-orange-100 flex items-center justify-center shadow-sm">
+              <div className="mx-auto mb-6 w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center shadow-[0_0_15px_rgba(245,158,11,0.1)] group-hover:scale-110 transition-transform duration-300">
                 {step.icon}
               </div>
 
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">
+              <h3 className="text-xl font-semibold text-base-content mb-2">
                 {step.title}
               </h3>
 
-              <p className="text-gray-600 text-sm leading-relaxed">
+              <p className="text-base-content/70 text-sm leading-relaxed">
                 {step.description}
               </p>
             </motion.div>

@@ -55,41 +55,52 @@ const MyTuitions = () => {
   };
 
   return (
-    <div className="p-4 md:p-6 space-y-6 min-h-screen bg-gray-50">
-      <h2 className="text-2xl md:text-3xl font-bold text-gray-800">
-        My Tuitions ({Tuitions.length})
-      </h2>
+    <div className="p-4 md:p-8 space-y-8 min-h-screen bg-base-200 transition-all duration-300">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <h2 className="text-3xl font-extrabold text-base-content tracking-tight">
+          My <span className="text-primary">Tuitions</span>{" "}
+          <span className="text-lg font-medium text-base-content/50 ml-2">({Tuitions.length})</span>
+        </h2>
+      </div>
 
       {/* Desktop Table */}
-      <div className="hidden md:block overflow-x-auto bg-white shadow rounded-xl">
+      <div className="hidden md:block overflow-hidden bg-base-100 shadow-2xl rounded-2xl border border-base-300/50">
         <table className="w-full table-auto">
-          <thead className="bg-gray-100">
+          <thead className="bg-base-300">
             <tr>
               {["#", "Subject", "Title", "Location", "Budget", "Schedule", "Status", "Actions"].map(head => (
-                <th key={head} className="px-4 py-3 text-left font-medium text-gray-700">{head}</th>
+                <th key={head} className="px-6 py-4 text-left text-xs font-bold text-base-content/60 uppercase tracking-widest">{head}</th>
               ))}
             </tr>
           </thead>
-          <tbody>
+          <tbody className="divide-y divide-base-300/50">
             {Tuitions.map((tuition, index) => (
-              <tr key={tuition._id} className="hover:bg-gray-50 transition-colors">
-                <td className="px-4 py-2">{index + 1}</td>
-                <td className="px-4 py-2">{tuition.subject}</td>
-                <td className="px-4 py-2">{tuition.title}</td>
-                <td className="px-4 py-2">{tuition.location}</td>
-                <td className="px-4 py-2 font-semibold">${tuition.budget}/hr</td>
-                <td className="px-4 py-2">{tuition.schedule}</td>
-                <td className="px-4 py-2 capitalize font-medium">{tuition.status}</td>
-                <td className="px-4 py-2 flex gap-2">
+              <tr key={tuition._id} className="hover:bg-base-200/50 transition-colors group">
+                <td className="px-6 py-4 text-sm font-medium">{index + 1}</td>
+                <td className="px-6 py-4 text-sm font-bold text-primary">{tuition.subject}</td>
+                <td className="px-6 py-4 text-sm font-medium truncate max-w-[150px]">{tuition.title}</td>
+                <td className="px-6 py-4 text-sm text-base-content/70 font-medium">{tuition.location}</td>
+                <td className="px-6 py-4 text-sm font-extrabold text-base-content">${tuition.budget}/hr</td>
+                <td className="px-6 py-4 text-sm text-base-content/70 font-medium">{tuition.schedule}</td>
+                <td className="px-6 py-4">
+                  <span className={`px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-widest border ${
+                    tuition.status === 'approved' ? 'bg-success/10 text-success border-success/20' : 
+                    tuition.status === 'pending' ? 'bg-warning/10 text-warning border-warning/20' : 
+                    'bg-error/10 text-error border-error/20'
+                  }`}>
+                    {tuition.status}
+                  </span>
+                </td>
+                <td className="px-6 py-4 flex gap-3">
                   <button
                     onClick={() => handleEdit(tuition._id)}
-                    className='btn btn-square hover:bg-yellow-500 transition'
+                    className='btn btn-sm btn-square bg-primary/10 text-primary border-none hover:bg-primary hover:text-black transition-all shadow-sm'
                   >
                     <FaEdit />
                   </button>
                   <button
                     onClick={() => handeldelete(tuition._id)}
-                    className='btn btn-square hover:bg-red-500 transition'
+                    className='btn btn-sm btn-square bg-error/10 text-error border-none hover:bg-error hover:text-white transition-all shadow-sm'
                   >
                     <FaTrashCan />
                   </button>
@@ -101,28 +112,36 @@ const MyTuitions = () => {
       </div>
 
       {/* Mobile Cards */}
-      <div className="md:hidden flex flex-col gap-4">
+      <div className="md:hidden flex flex-col gap-6">
         {Tuitions.map((tuition, index) => (
-          <div key={tuition._id} className="bg-white shadow-md rounded-xl p-4 flex flex-col gap-2">
-            <div className="flex justify-between items-center mb-1">
-              <span className="font-semibold">#{index + 1}</span>
-              <span className="text-sm text-gray-500 capitalize">{tuition.status}</span>
+          <div key={tuition._id} className="bg-base-100 shadow-2xl rounded-3xl p-6 flex flex-col gap-4 border border-base-300/50">
+            <div className="flex justify-between items-center mb-2">
+              <span className="text-xs font-bold text-base-content/40 uppercase tracking-widest"># {index + 1}</span>
+              <span className={`px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-widest border ${
+                tuition.status === 'approved' ? 'bg-success/10 text-success border-success/20' : 
+                tuition.status === 'pending' ? 'bg-warning/10 text-warning border-warning/20' : 
+                'bg-error/10 text-error border-error/20'
+              }`}>
+                {tuition.status}
+              </span>
             </div>
-            <p className="text-gray-700"><span className="font-medium">Subject:</span> {tuition.subject}</p>
-            <p className="text-gray-700"><span className="font-medium">Title:</span> {tuition.title}</p>
-            <p className="text-gray-700"><span className="font-medium">Location:</span> {tuition.location}</p>
-            <p className="text-gray-700"><span className="font-medium">Budget:</span> ${tuition.budget}/hr</p>
-            <p className="text-gray-700"><span className="font-medium">Schedule:</span> {tuition.schedule}</p>
-            <div className="flex gap-2 mt-2">
+            <div className="space-y-3">
+              <p className="text-base-content/80 text-sm flex justify-between font-medium"><span className="text-base-content/40 uppercase text-[10px] tracking-widest font-bold">Subject:</span> {tuition.subject}</p>
+              <p className="text-base-content font-bold flex justify-between"><span className="text-base-content/40 uppercase text-[10px] tracking-widest font-bold">Title:</span> {tuition.title}</p>
+              <p className="text-base-content/80 text-sm flex justify-between font-medium"><span className="text-base-content/40 uppercase text-[10px] tracking-widest font-bold">Location:</span> {tuition.location}</p>
+              <p className="text-base-content flex justify-between font-extrabold"><span className="text-base-content/40 uppercase text-[10px] tracking-widest font-bold">Budget:</span> ${tuition.budget}/hr</p>
+              <p className="text-base-content/80 text-sm flex justify-between font-medium"><span className="text-base-content/40 uppercase text-[10px] tracking-widest font-bold">Schedule:</span> {tuition.schedule}</p>
+            </div>
+            <div className="flex gap-4 mt-2">
               <button
                 onClick={() => handleEdit(tuition._id)}
-                className="flex-1 btn bg-yellow-500 text-white hover:bg-yellow-600 transition rounded-lg"
+                className="flex-1 btn btn-md bg-primary text-black font-extrabold hover:bg-primary/90 transition-all rounded-xl border-none shadow-lg"
               >
                 Edit
               </button>
               <button
                 onClick={() => handeldelete(tuition._id)}
-                className="flex-1 btn bg-red-500 text-white hover:bg-red-600 transition rounded-lg"
+                className="flex-1 btn btn-md bg-error/10 text-error font-extrabold hover:bg-error hover:text-white transition-all rounded-xl border-none"
               >
                 Delete
               </button>

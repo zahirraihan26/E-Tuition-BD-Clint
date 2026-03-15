@@ -6,7 +6,7 @@ import Navbar from '../Pages/Shared/Navebar/Navbar';
 
 const RootLaout = () => {
     return (
-        <div>
+        <div className="bg-base-100 transition-colors duration-200">
             <Navbar></Navbar>
             <section className='min-h-screen'>
                 <Outlet></Outlet>

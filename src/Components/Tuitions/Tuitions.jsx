@@ -3,7 +3,9 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import LoadingSpinner from '../LoadingSpinner';
 import TuitionsCard from '../TuitionsCard/TuitionsCard';
-import { FaSearch, FaBook, FaMapMarkerAlt, FaSortAmountDown, FaSortAmountUp } from 'react-icons/fa';
+import { FaSearch, FaBook, FaMapMarkerAlt, FaSortAmountDown } from 'react-icons/fa';
+import { MdOutlineCastForEducation } from 'react-icons/md';
+import { motion } from 'framer-motion';
 
 const Tuitions = () => {
   const [page, setPage] = useState(1);
@@ -62,17 +64,50 @@ const Tuitions = () => {
   const locations = [...new Set(Tuitions.map(t => t.location).filter(Boolean))];
 
   return (
-    <div className="w-full font-sans">
+    <div className="w-full font-sans bg-base-100">
 
-      {/* Hero */}
-      <div className="bg-[#0F1B36]   py-24 text-center text-white">
-        <h1 className="text-4xl md:text-5xl font-bold">
-          Browse <span className="text-yellow-400">Tuitions</span>
-        </h1>
-        <p className="mt-3 text-gray-200 max-w-2xl mx-auto">
-          Find the perfect tutoring opportunity that matches your skills and schedule.
-        </p>
-      </div>
+      {/* Hero Section */}
+      <section className="relative overflow-hidden bg-[#020617] py-24 text-white">
+        {/* Premium Background Elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-primary/10 rounded-full blur-[120px] animate-pulse"></div>
+          <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-accent/10 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '2s' }}></div>
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-7xl px-6 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            {/* Tag */}
+            <motion.div
+              className="inline-flex items-center gap-2 bg-primary/10 px-4 py-1.5 rounded-full text-xs font-black mb-6 border border-primary/20 backdrop-blur-md shadow-[0_0_15px_rgba(245,158,11,0.1)] mx-auto"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              <MdOutlineCastForEducation className="text-primary text-sm" />
+              <span className="text-primary uppercase tracking-widest font-black">Explore Opportunities</span>
+            </motion.div>
+
+            <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-[1.1]">
+              Browse{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-amber-400 to-accent">
+                Tuitions
+              </span>
+            </h1>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3, duration: 0.8 }}
+              className="mx-auto mt-6 max-w-2xl text-lg md:text-xl text-slate-400 leading-relaxed font-medium"
+            >
+              Connect with elite teaching opportunities and achieve your academic goals. <span className="text-white/80 italic font-bold">Personalized learning made simple.</span>
+            </motion.p>
+          </motion.div>
+        </div>
+      </section>
 
       {/* Controls */}
       <div className="max-w-7xl mx-auto px-6 mt-10">
@@ -85,7 +120,7 @@ const Tuitions = () => {
               placeholder="Search by title or location..."
               value={searchText}
               onChange={e => { setSearchText(e.target.value); setPage(1); }}
-              className="w-full border rounded-full px-5 py-3 pl-12 shadow-sm focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+              className="w-full border border-base-300 bg-base-100 text-base-content rounded-full px-5 py-3 pl-12 shadow-sm focus:ring-2 focus:ring-primary focus:outline-none"
             />
             <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
               <FaSearch />
@@ -98,7 +133,7 @@ const Tuitions = () => {
             <select
               value={filterSubject}
               onChange={e => { setFilterSubject(e.target.value); setPage(1); }}
-              className="w-full border rounded-full px-5 py-3 pl-12 shadow-sm focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+              className="w-full border border-base-300 bg-base-100 text-base-content rounded-full px-5 py-3 pl-12 shadow-sm focus:ring-2 focus:ring-primary focus:outline-none"
             >
               <option value="">All Subjects</option>
               {subjects.map(sub => <option key={sub} value={sub}>{sub}</option>)}
@@ -111,7 +146,7 @@ const Tuitions = () => {
             <select
               value={filterLocation}
               onChange={e => { setFilterLocation(e.target.value); setPage(1); }}
-              className="w-full border rounded-full px-5 py-3 pl-12 shadow-sm focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+              className="w-full border border-base-300 bg-base-100 text-base-content rounded-full px-5 py-3 pl-12 shadow-sm focus:ring-2 focus:ring-primary focus:outline-none"
             >
               <option value="">All Locations</option>
               {locations.map(loc => <option key={loc} value={loc}>{loc}</option>)}
@@ -124,7 +159,7 @@ const Tuitions = () => {
             <select
               value={sortBy}
               onChange={e => { setSortBy(e.target.value); setPage(1); }}
-              className="w-full border rounded-full px-5 py-3 pl-12 shadow-sm focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+              className="w-full border border-base-300 bg-base-100 text-base-content rounded-full px-5 py-3 pl-12 shadow-sm focus:ring-2 focus:ring-primary focus:outline-none"
             >
               <option value="latest">Most Recent</option>
               <option value="budgetLowHigh">Budget: Low → High</option>
@@ -137,7 +172,7 @@ const Tuitions = () => {
 
       {/* Content */}
       <div className="max-w-7xl mx-auto px-6 py-10">
-        <h2 className="mb-6 text-lg font-semibold text-gray-700">
+        <h2 className="mb-6 text-lg font-semibold text-base-content/70">
           Showing {paginatedTuitions.length} of {processedTuitions.length} tuitions
         </h2>
 
@@ -152,7 +187,7 @@ const Tuitions = () => {
           <button
             onClick={() => setPage(p => Math.max(p - 1, 1))}
             disabled={page === 1}
-            className="px-4 py-2 border rounded shadow hover:bg-yellow-400 hover:text-white disabled:opacity-50"
+            className="px-4 py-2 border border-base-300 bg-base-100 text-base-content rounded shadow hover:bg-primary hover:text-primary-content disabled:opacity-50"
           >
             Prev
           </button>
@@ -161,8 +196,8 @@ const Tuitions = () => {
             <button
               key={num}
               onClick={() => setPage(num + 1)}
-              className={`px-4 py-2 border rounded shadow hover:bg-yellow-400 hover:text-white 
-                ${page === num + 1 ? 'bg-yellow-400 text-white' : 'bg-gray-100'}`}
+              className={`px-4 py-2 border border-base-300 rounded shadow hover:bg-primary hover:text-primary-content 
+                ${page === num + 1 ? 'bg-primary text-primary-content' : 'bg-base-100'}`}
             >
               {num + 1}
             </button>
@@ -171,7 +206,7 @@ const Tuitions = () => {
           <button
             onClick={() => setPage(p => Math.min(p + 1, totalPages))}
             disabled={page === totalPages}
-            className="px-4 py-2 border rounded shadow hover:bg-yellow-400 hover:text-white disabled:opacity-50"
+            className="px-4 py-2 border border-base-300 bg-base-100 text-base-content rounded shadow hover:bg-primary hover:text-primary-content disabled:opacity-50"
           >
             Next
           </button>

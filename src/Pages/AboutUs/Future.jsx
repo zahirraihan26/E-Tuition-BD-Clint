@@ -22,7 +22,7 @@ const fadeUp = {
 
 const Future = () => {
   return (
-    <section className="py-16 px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center font-sans bg-white overflow-hidden">
+    <section className="py-16 px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center font-sans bg-base-100 overflow-hidden border-t border-base-300/30">
       
       {/* Left Content */}
       <motion.div
@@ -32,15 +32,15 @@ const Future = () => {
         viewport={{ once: true }}
         className="space-y-6"
       >
-        <span className="inline-block bg-orange-100 text-[#f9a826] px-4 py-1 rounded-full text-sm font-bold">
-          Our Story
-        </span>
+        <span className="inline-block bg-primary/10 text-primary px-4 py-1 rounded-full text-sm font-bold">
+            Our Vision
+          </span>
 
-        <h2 className="text-4xl md:text-5xl font-bold text-[#1a233b] leading-tight">
-          Building the Future of <span className="text-[#f9a826]">Learning</span>
+        <h2 className="text-4xl md:text-5xl font-bold text-base-content leading-tight">
+          Building the Future of <span className="text-primary">Learning</span>
         </h2>
 
-        <div className="text-gray-600 text-lg space-y-4 leading-relaxed">
+        <div className="text-base-content/70 text-lg space-y-4 leading-relaxed">
           <p>
             TuitionHub was founded in 2024 with a simple idea: everyone deserves access to quality education.
           </p>
@@ -75,12 +75,12 @@ const StatBox = ({ number, label }) => {
     <motion.div
       variants={fadeUp}
       whileHover={{ scale: 1.06, y: -6 }}
-      className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center justify-center text-center transition"
+      className="bg-base-100 p-8 rounded-2xl border border-base-300/50 shadow-sm flex flex-col items-center justify-center text-center transition hover:border-primary/30"
     >
-      <h3 className="text-3xl font-extrabold text-[#f9a826] mb-2">
+      <h3 className="text-3xl font-extrabold text-primary mb-2">
         {number}
       </h3>
-      <p className="text-gray-500 font-medium text-sm tracking-wide uppercase">
+      <p className="text-base-content/50 font-semibold text-xs tracking-wide uppercase">
         {label}
       </p>
     </motion.div>

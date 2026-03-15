@@ -52,69 +52,81 @@ const TuitionManagement = () => {
     }
   };
 
-  if (isLoading) return <p className="text-center py-6">Loading...</p>;
+  if (isLoading) return (
+    <div className="flex items-center justify-center min-h-[400px] bg-base-200">
+      <span className="loading loading-spinner loading-lg text-primary"></span>
+    </div>
+  );
 
   return (
-    <div className="p-4 md:p-6 bg-gray-50 min-h-screen">
-      <h2 className="text-3xl font-bold mb-6 text-gray-800">
-        Tuition Management <span className="text-gray-500">({tuitions.length})</span>
-      </h2>
+    <div className="p-4 md:p-8 space-y-8 min-h-screen bg-base-200 transition-all duration-300">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h2 className="text-3xl font-extrabold text-base-content tracking-tight">
+            Tuition <span className="text-primary">Management</span>
+          </h2>
+          <p className="text-base-content/50 font-medium mt-1">Manage and moderate all tuition listings ({tuitions.length})</p>
+        </div>
+      </div>
 
       {/* Desktop Table */}
-      <div className="hidden md:block overflow-x-auto bg-white shadow rounded-lg">
+      <div className="hidden md:block overflow-hidden bg-base-100 shadow-2xl rounded-2xl border border-base-300/50">
         <table className="w-full table-auto">
-          <thead className="bg-gradient-to-r from-blue-100 to-blue-50">
+          <thead className="bg-base-300">
             <tr>
-              <th className="px-4 py-2">#</th>
-              <th className="px-4 py-2">Photo</th>
-              <th className="px-4 py-2">Email</th>
-              <th className="px-4 py-2">Title</th>
-              <th className="px-4 py-2">Subject</th>
-              <th className="px-4 py-2">Location</th>
-              <th className="px-4 py-2">Budget</th>
-              <th className="px-4 py-2">Status</th>
-              <th className="px-4 py-2">Schedule</th>
-              <th className="px-4 py-2">Actions</th>
+              <th className="px-6 py-4 text-left text-xs font-bold text-base-content/60 uppercase tracking-widest">#</th>
+              <th className="px-6 py-4 text-center text-xs font-bold text-base-content/60 uppercase tracking-widest">Photo</th>
+              <th className="px-6 py-4 text-left text-xs font-bold text-base-content/60 uppercase tracking-widest">Student</th>
+              <th className="px-6 py-4 text-left text-xs font-bold text-base-content/60 uppercase tracking-widest">Title</th>
+              <th className="px-6 py-4 text-left text-xs font-bold text-base-content/60 uppercase tracking-widest">Subject</th>
+              <th className="px-6 py-4 text-left text-xs font-bold text-base-content/60 uppercase tracking-widest">Location</th>
+              <th className="px-6 py-4 text-left text-xs font-bold text-base-content/60 uppercase tracking-widest">Budget</th>
+              <th className="px-6 py-4 text-left text-xs font-bold text-base-content/60 uppercase tracking-widest">Status</th>
+              <th className="px-6 py-4 text-left text-xs font-bold text-base-content/60 uppercase tracking-widest">Actions</th>
             </tr>
           </thead>
 
-          <tbody>
+          <tbody className="divide-y divide-base-300/50">
             {tuitions.map((tuition, index) => (
-              <tr key={tuition._id} className="hover:bg-gray-50  transition-colors">
-                <td className="px-4 py-2">{index + 1}</td>
-                <td className="px-4 py-2">
-                  <img
-                    src={tuition.student?.image}
-                    alt="student"
-                    className="w-10 h-10 rounded-full object-cover"
-                  />
+              <tr key={tuition._id} className="hover:bg-base-200/50 transition-colors group">
+                <td className="px-6 py-4 text-sm font-medium">{index + 1}</td>
+                <td className="px-6 py-4">
+                  <div className="avatar">
+                    <div className="w-10 rounded-full border-2 border-primary/20 p-0.5">
+                      <img
+                        src={tuition.student?.image}
+                        alt="student"
+                        className="rounded-full object-cover"
+                      />
+                    </div>
+                  </div>
                 </td>
-                <td className="px-4 py-2">{tuition.student?.email}</td>
-                <td className="px-4 py-2">{tuition.title}</td>
-                <td className="px-4 py-2">{tuition.subject}</td>
-                <td className="px-4 py-2">{tuition.location}</td>
-                <td className="px-4 py-2">${tuition.budget}</td>
-                <td className={`px-3 py-2    ${tuition.status === "approved" ? "text-green-600" :
-                    tuition.status === "rejected" ? "text-red-600" : "text-orange-500"
-                  }`}>{tuition.status}</td>
-                <td className="px-4 py-2">{tuition.schedule}</td>
-                <td className="px-4 py-2 flex gap-2">
-
-                  <>
-                    <button
-                      onClick={() => handleApprove(tuition._id)}
-                      className="btn btn-sm flex items-center gap-1 bg-green-500 text-white hover:bg-green-600"
-                    >
-                      <IoMdCheckbox /> Approve
-                    </button>
-                    <button
-                      onClick={() => handleReject(tuition._id)}
-                      className="btn btn-sm flex items-center gap-1 bg-red-500 text-white hover:bg-red-600"
-                    >
-                      <MdCancelPresentation /> Reject
-                    </button>
-                  </>
-
+                <td className="px-6 py-4 text-sm text-base-content/70 font-medium truncate max-w-[150px]">{tuition.student?.email}</td>
+                <td className="px-6 py-4 text-sm font-bold text-base-content truncate max-w-[150px]">{tuition.title}</td>
+                <td className="px-6 py-4 text-sm font-bold text-primary">{tuition.subject}</td>
+                <td className="px-6 py-4 text-sm text-base-content/70 font-medium break-all">{tuition.location}</td>
+                <td className="px-6 py-4 text-sm font-extrabold text-base-content">${tuition.budget}</td>
+                <td className="px-6 py-4">
+                  <span className={`px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-widest border ${
+                    tuition.status === "approved" ? "bg-success/10 text-success border-success/20" :
+                    tuition.status === "rejected" ? "bg-error/10 text-error border-error/20" : "bg-warning/10 text-warning border-warning/20"
+                  }`}>
+                    {tuition.status}
+                  </span>
+                </td>
+                <td className="px-6 py-4 flex gap-3">
+                  <button
+                    onClick={() => handleApprove(tuition._id)}
+                    className="btn btn-sm bg-success text-white font-bold hover:bg-success/90 transition-all rounded-xl shadow-lg border-none"
+                  >
+                    <IoMdCheckbox /> Approve
+                  </button>
+                  <button
+                    onClick={() => handleReject(tuition._id)}
+                    className="btn btn-sm btn-square bg-error/10 text-error border-none hover:bg-error hover:text-white transition-all shadow-sm"
+                  >
+                    <MdCancelPresentation />
+                  </button>
                 </td>
               </tr>
             ))}
@@ -125,34 +137,37 @@ const TuitionManagement = () => {
       {/* Mobile Card Layout */}
       <div className="md:hidden flex flex-col gap-6">
         {tuitions.map((tuition, index) => (
-          <div key={tuition._id} className="bg-white shadow-md rounded-lg p-4 flex flex-col gap-6">
-            <div className="flex justify-between items-center">
-              <span className="font-semibold">#{index + 1}</span>
-              <span className={`px-2 py-1  text-sm font-semibold ${tuition.status === "approved" ? "text-green-600" :
-                  tuition.status === "rejected" ? "text-red-600" : "text-orange-500"
-                }`}>
+          <div key={tuition._id} className="bg-base-100 shadow-2xl rounded-3xl p-6 flex flex-col gap-4 border border-base-300/50">
+            <div className="flex justify-between items-center mb-2">
+              <span className="text-xs font-bold text-base-content/40 uppercase tracking-widest"># {index + 1}</span>
+              <span className={`px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-widest border ${
+                tuition.status === "approved" ? "bg-success/10 text-success border-success/20" :
+                tuition.status === "rejected" ? "bg-error/10 text-error border-error/20" : "bg-warning/10 text-warning border-warning/20"
+              }`}>
                 {tuition.status}
               </span>
             </div>
-            <p className="text-gray-700"><span className="font-medium">Email:</span> {tuition.student?.email}</p>
-            <p className="text-gray-700"><span className="font-medium">Title:</span> {tuition.title}</p>
-            <p className="text-gray-700"><span className="font-medium">Subject:</span> {tuition.subject}</p>
-            <p className="text-gray-700"><span className="font-medium">Location:</span> {tuition.location}</p>
-            <p className="text-gray-700"><span className="font-medium">Budget:</span> ${tuition.budget}</p>
-            <p className="text-gray-700"><span className="font-medium">Schedule:</span> {tuition.schedule}</p>
+            <div className="space-y-3">
+              <p className="text-base-content/80 text-sm flex justify-between font-medium"><span className="text-base-content/40 uppercase text-[10px] tracking-widest font-bold">Email:</span> <span className="truncate ml-2">{tuition.student?.email}</span></p>
+              <p className="text-base-content font-bold flex justify-between"><span className="text-base-content/40 uppercase text-[10px] tracking-widest font-bold">Title:</span> {tuition.title}</p>
+              <p className="text-base-content font-bold flex justify-between"><span className="text-base-content/40 uppercase text-[10px] tracking-widest font-bold">Subject:</span> <span className="text-primary">{tuition.subject}</span></p>
+              <p className="text-base-content/80 text-sm flex justify-between font-medium"><span className="text-base-content/40 uppercase text-[10px] tracking-widest font-bold">Location:</span> {tuition.location}</p>
+              <p className="text-base-content flex justify-between font-extrabold"><span className="text-base-content/40 uppercase text-[10px] tracking-widest font-bold">Budget:</span> ${tuition.budget}</p>
+              <p className="text-base-content/80 text-sm flex justify-between font-medium"><span className="text-base-content/40 uppercase text-[10px] tracking-widest font-bold">Schedule:</span> {tuition.schedule}</p>
+            </div>
 
-            <div className="flex gap-2 mt-2">
+            <div className="flex gap-4 mt-2">
               <button
                 onClick={() => handleApprove(tuition._id)}
-                className="btn btn-sm flex-1 bg-green-500 text-white hover:bg-green-600"
+                className="btn btn-sm flex-1 bg-success text-white font-extrabold hover:bg-success/90 transition-all rounded-xl border-none shadow-lg"
               >
                 <IoMdCheckbox /> Approve
               </button>
               <button
                 onClick={() => handleReject(tuition._id)}
-                className="btn btn-sm flex-1 bg-red-500 text-white hover:bg-red-600"
+                className="btn btn-sm flex-1 bg-error/10 text-error font-extrabold hover:bg-error hover:text-white transition-all rounded-xl border-none"
               >
-                <MdCancelPresentation /> Reject
+                Reject
               </button>
             </div>
 

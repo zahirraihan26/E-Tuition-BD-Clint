@@ -54,6 +54,10 @@ export const router = createBrowserRouter([
         Component: Tuitorlisting
       },
       {
+        path: "be-a-tutor",
+        Component: BeATutor
+      },
+      {
         path: "/about",
         Component: AboutUs
       },

@@ -17,7 +17,7 @@ const stagger = {
 
 const Ourjurney = () => {
   return (
-    <div className="bg-gray-50 font-sans text-[#1a233b]">
+    <div className="bg-base-200 font-sans text-base-content">
 
       {/* ================= OUR STORY ================= */}
       <section className="max-w-7xl mx-auto py-20 px-6 grid md:grid-cols-2 gap-12 items-center">
@@ -31,15 +31,15 @@ const Ourjurney = () => {
           transition={{ duration: 0.6 }}
           className="space-y-6"
         >
-          <span className="bg-orange-100 text-[#f9a826] px-4 py-1 rounded-full text-sm font-bold">
+          <span className="bg-primary/10 text-primary px-4 py-1 rounded-full text-sm font-bold">
             Our Story
           </span>
 
           <h2 className="text-4xl md:text-5xl font-extrabold leading-tight">
-            Building the Future of <span className="text-[#f9a826]">Learning</span>
+            Building the Future of <span className="text-primary">Learning</span>
           </h2>
 
-          <div className="text-gray-600 text-lg space-y-4 leading-relaxed">
+          <div className="text-base-content/70 text-lg space-y-4 leading-relaxed">
             <p>
               TuitionHub was founded in 2024 with a simple idea: everyone deserves
               access to quality education.
@@ -81,12 +81,12 @@ const Ourjurney = () => {
           transition={{ duration: 0.6 }}
           className="mb-12 space-y-4"
         >
-          <span className="bg-orange-100 text-[#f9a826] px-4 py-1 rounded-full text-sm font-bold">
+          <span className="bg-primary/20 text-primary px-4 py-1 rounded-full text-sm font-bold">
             What We Stand For
           </span>
 
           <h2 className="text-4xl font-extrabold">
-            Our Core <span className="text-[#f9a826]">Values</span>
+            Our Core <span className="text-primary">Values</span>
           </h2>
         </motion.div>
 
@@ -98,22 +98,22 @@ const Ourjurney = () => {
           className="grid md:grid-cols-4 gap-6"
         >
           <ValueCard
-            icon={<Target className="w-8 h-8 text-[#f9a826]" />}
+            icon={<Target className="w-8 h-8 text-primary" />}
             title="Our Mission"
             desc="To democratize education by connecting students with the best tutors."
           />
           <ValueCard
-            icon={<Heart className="w-8 h-8 text-[#f9a826]" />}
+            icon={<Heart className="w-8 h-8 text-primary" />}
             title="Our Values"
             desc="Transparency, quality, and student success guide everything we do."
           />
           <ValueCard
-            icon={<Users className="w-8 h-8 text-[#f9a826]" />}
+            icon={<Users className="w-8 h-8 text-primary" />}
             title="Our Community"
             desc="A growing network of passionate educators and eager learners."
           />
           <ValueCard
-            icon={<ShieldCheck className="w-8 h-8 text-[#f9a826]" />}
+            icon={<ShieldCheck className="w-8 h-8 text-primary" />}
             title="Our Standards"
             desc="Every tutor is verified to ensure top-quality instruction."
           />
@@ -129,10 +129,10 @@ const StatCard = ({ number, label }) => (
   <motion.div
     variants={fadeUp}
     transition={{ duration: 0.5 }}
-    className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center text-center"
+    className="bg-base-100 p-8 rounded-2xl shadow-sm border border-base-300/50 flex flex-col items-center text-center"
   >
-    <h3 className="text-3xl font-bold text-[#f9a826] mb-1">{number}</h3>
-    <p className="text-gray-500 text-xs font-semibold uppercase tracking-wider">
+    <h3 className="text-3xl font-bold text-primary mb-1">{number}</h3>
+    <p className="text-base-content/50 text-xs font-semibold uppercase tracking-wider">
       {label}
     </p>
   </motion.div>
@@ -143,13 +143,13 @@ const ValueCard = ({ icon, title, desc }) => (
     variants={fadeUp}
     whileHover={{ y: -8 }}
     transition={{ duration: 0.4 }}
-    className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center text-center space-y-4"
+    className="bg-base-100 p-8 rounded-2xl shadow-sm border border-base-300/50 flex flex-col items-center text-center space-y-4"
   >
-    <div className="bg-orange-50 p-4 rounded-xl">
+    <div className="bg-primary/10 p-4 rounded-xl">
       {icon}
     </div>
     <h4 className="text-xl font-bold">{title}</h4>
-    <p className="text-gray-500 text-sm leading-relaxed">{desc}</p>
+    <p className="text-base-content/60 text-sm leading-relaxed">{desc}</p>
   </motion.div>
 );
 
