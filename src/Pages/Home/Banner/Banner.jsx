@@ -1,8 +1,24 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { motion, animate } from "framer-motion";
+import { Link } from "react-router";
 import { FaUserGraduate, FaUsers } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
 import { MdOutlineCastForEducation } from "react-icons/md";
+
+const Counter = ({ value, duration = 10 }) => {
+  const [displayValue, setDisplayValue] = useState(0);
+
+  useEffect(() => {
+    const controls = animate(0, value, {
+      duration: duration,
+      onUpdate: (latest) => setDisplayValue(Math.floor(latest)),
+      ease: "easeOut",
+    });
+    return () => controls.stop();
+  }, [value, duration]);
+
+  return <span>{displayValue}</span>;
+};
 
 const Banner = () => {
   return (
@@ -62,21 +78,25 @@ const Banner = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.9 }}
           >
-            <motion.button
-              whileHover={{ scale: 1.05, boxShadow: "0 20px 40px -10px rgba(245, 158, 11, 0.4)" }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-primary hover:bg-amber-400 text-black px-10 py-4 rounded-2xl font-black flex items-center gap-3 transition-all shadow-xl text-base uppercase tracking-widest"
-            >
-              <IoSearch className="text-xl font-black" /> Find Tuitions
-            </motion.button>
+            <Link to="/tuitions">
+              <motion.button
+                whileHover={{ scale: 1.05, boxShadow: "0 20px 40px -10px rgba(245, 158, 11, 0.4)" }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-primary hover:bg-amber-400 text-black px-10 py-4 rounded-2xl font-black flex items-center gap-3 transition-all shadow-xl text-base uppercase tracking-widest"
+              >
+                <IoSearch className="text-xl font-black" /> Find Tuitions
+              </motion.button>
+            </Link>
 
-            <motion.button
-              whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.05)" }}
-              whileTap={{ scale: 0.95 }}
-              className="border-2 border-white/10 px-10 py-4 rounded-2xl font-black hover:border-primary transition-all backdrop-blur-md text-base uppercase tracking-widest"
-            >
-              Become a Tutor
-            </motion.button>
+            <Link to="/be-a-tutor">
+              <motion.button
+                whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.05)" }}
+                whileTap={{ scale: 0.95 }}
+                className="border-2 border-white/10 px-10 py-4 rounded-2xl font-black hover:border-primary transition-all backdrop-blur-md text-base uppercase tracking-widest"
+              >
+                Become a Tutor
+              </motion.button>
+            </Link>
           </motion.div>
 
           {/* Stats */}
@@ -87,15 +107,21 @@ const Banner = () => {
             transition={{ delay: 1.1 }}
           >
             <div>
-              <h2 className="text-4xl font-black text-white">5000+</h2>
+              <h2 className="text-4xl font-black text-white">
+                <Counter value={5000} />+
+              </h2>
               <p className="text-slate-500 text-xs font-black uppercase tracking-widest mt-1">Tuitions Posted</p>
             </div>
             <div>
-              <h2 className="text-4xl font-black text-white">2500+</h2>
+              <h2 className="text-4xl font-black text-white">
+                <Counter value={2500} />+
+              </h2>
               <p className="text-slate-500 text-xs font-black uppercase tracking-widest mt-1">Expert Tutors</p>
             </div>
             <div className="hidden sm:block">
-              <h2 className="text-4xl font-black text-white">98%</h2>
+              <h2 className="text-4xl font-black text-white">
+                <Counter value={98} />%
+              </h2>
               <p className="text-slate-500 text-xs font-black uppercase tracking-widest mt-1">Success Rate</p>
             </div>
           </motion.div>
