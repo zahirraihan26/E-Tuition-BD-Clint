@@ -1,5 +1,5 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { motion, animate } from "framer-motion";
 import {
   FaShieldAlt,
   FaClock,
@@ -8,6 +8,50 @@ import {
   FaStar,
   FaGlobe,
 } from "react-icons/fa";
+
+const Counter = ({ value, duration = 2, decimals = 0 }) => {
+  const [displayValue, setDisplayValue] = useState(0);
+
+  useEffect(() => {
+    const controls = animate(0, value, {
+      duration: duration,
+      onUpdate: (latest) => {
+        if (decimals > 0) {
+          setDisplayValue(latest.toFixed(decimals));
+        } else {
+          setDisplayValue(Math.floor(latest));
+        }
+      },
+      ease: "easeOut",
+    });
+    return () => controls.stop();
+  }, [value, duration, decimals]);
+
+  return <span>{displayValue}</span>;
+};
+
+const StatItem = ({ item, i }) => {
+  const [key, setKey] = useState(0);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      whileHover={{ scale: 1.1 }}
+      transition={{ delay: i * 0.2, duration: 0.6 }}
+      viewport={{ once: true }}
+      className="relative cursor-default"
+      onMouseEnter={() => setKey(prev => prev + 1)}
+    >
+      <h3 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-base-content to-base-content/40 mb-1">
+        <Counter key={key} value={item.value} decimals={item.decimals || 0} duration={2} />{item.suffix}
+      </h3>
+      <p className="text-xs font-bold uppercase tracking-widest text-primary/80">
+        {item.label}
+      </p>
+    </motion.div>
+  );
+};
 
 const WhyTutionHub = () => {
   return (
@@ -39,25 +83,11 @@ const WhyTutionHub = () => {
           {/* Stats */}
           <div className="flex flex-wrap gap-8 md:gap-12 mt-12">
             {[
-              { value: "50K+", label: "Success Stories" },
-              { value: "100+", label: "Specialized Subjects" },
-              { value: "4.9", label: "Top Rated" },
+              { value: 50, suffix: "K+", label: "Success Stories" },
+              { value: 100, suffix: "+", label: "Specialized Subjects" },
+              { value: 4.9, suffix: "", label: "Top Rated", decimals: 1 },
             ].map((item, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.2, duration: 0.6 }}
-                viewport={{ once: true }}
-                className="relative"
-              >
-                <h3 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-base-content to-base-content/40 mb-1">
-                  {item.value}
-                </h3>
-                <p className="text-xs font-bold uppercase tracking-widest text-primary/80">
-                  {item.label}
-                </p>
-              </motion.div>
+              <StatItem key={i} item={item} i={i} />
             ))}
           </div>
         </motion.div>
@@ -121,7 +151,7 @@ const FeatureCard = ({ icon, title, text }) => {
       transition={{ duration: 0.6 }}
       whileHover={{ scale: 1.05 }}
       className="
-        bg-base-100/40 backdrop-blur-2xl border border-white/5 
+        bg-base-100/40 backdrop-blur-2xl border border-base-content/5 
         rounded-3xl p-8 shadow-[0_20px_50px_rgba(0,0,0,0.1)] 
         hover:shadow-[0_20px_50px_rgba(0,0,0,0.2)] 
         hover:border-primary/30 transition-all duration-500 group
